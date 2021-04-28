@@ -1,7 +1,6 @@
 package co.edu.unicesar.estructura.datos.taller2.points.point1;
 
 import co.edu.unicesar.estructura.datos.taller2.models.collections.lists.SimplyLinkedList;
-
 import java.util.LinkedList;
 
 public class Point1 {

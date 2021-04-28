@@ -1,7 +1,6 @@
 package co.edu.unicesar.estructura.datos.taller2.models.collections.lists;
 
 import co.edu.unicesar.estructura.datos.taller2.models.collections.Contract;
-
 import java.util.Comparator;
 
 public interface List<T> {
@@ -18,6 +17,5 @@ public interface List<T> {
     boolean contains(T item);
 
     @Contract(mutates = "this")
-    default void sort(Comparator<?> comparator) {
-    }
+    default void sort(Comparator<?> comparator) {}
 }
