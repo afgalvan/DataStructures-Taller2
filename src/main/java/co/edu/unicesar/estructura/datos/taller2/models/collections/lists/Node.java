@@ -1,4 +1,4 @@
-package co.edu.unicesar.estructura.datos.taller2.points.collections.lists;
+package co.edu.unicesar.estructura.datos.taller2.models.collections.lists;
 
 import lombok.AllArgsConstructor;
 
@@ -9,6 +9,6 @@ public class Node<T> {
 
     @Override
     public String toString() {
-        return "" +this.item;
+        return this.item.toString();
     }
 }

@@ -1,4 +1,4 @@
-package co.edu.unicesar.estructura.datos.taller2.points.collections.lists;
+package co.edu.unicesar.estructura.datos.taller2.models.collections.lists;
 
 public abstract class LinkedList<T> implements List<T> {
 

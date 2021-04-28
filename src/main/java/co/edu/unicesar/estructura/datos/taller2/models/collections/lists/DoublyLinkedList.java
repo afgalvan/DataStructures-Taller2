@@ -1,4 +1,6 @@
-package co.edu.unicesar.estructura.datos.taller2.points.collections.lists;
+package co.edu.unicesar.estructura.datos.taller2.models.collections.lists;
+
+import java.util.Comparator;
 
 public class DoublyLinkedList<T> extends LinkedList<T> {
 
@@ -20,4 +22,14 @@ public class DoublyLinkedList<T> extends LinkedList<T> {
 
     @Override
     public void remove(Node<T> item) {}
+
+    @Override
+    public boolean contains(T item) {
+        return false;
+    }
+
+    @Override
+    public void sort(Comparator<?> comparator) {
+        super.sort(comparator);
+    }
 }

@@ -1,5 +1,6 @@
-package co.edu.unicesar.estructura.datos.taller2.points.collections.lists;
+package co.edu.unicesar.estructura.datos.taller2.models.collections.lists;
 
+import lombok.val;
 import lombok.var;
 
 public class SimplyLinkedList<T> extends LinkedList<T> {
@@ -18,7 +19,7 @@ public class SimplyLinkedList<T> extends LinkedList<T> {
 
     @Override
     public void add(T item) {
-        SimplyNode<T> node = new SimplyNode<>(item);
+        val node = new SimplyNode<>(item);
         if (this.isEmpty()) {
             this.first = node;
         } else {
@@ -31,6 +32,11 @@ public class SimplyLinkedList<T> extends LinkedList<T> {
 
     @Override
     public void remove(Node<T> item) {}
+
+    @Override
+    public boolean contains(T item) {
+        return false;
+    }
 
     @Override
     public String toString() {
