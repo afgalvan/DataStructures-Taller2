@@ -1,7 +1,5 @@
 plugins {
     id 'java'
-    id 'application'
-    id 'idea'
 }
 
 group 'org.example'
@@ -9,16 +7,6 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
-}
-
-mainClassName = 'co.edu.unicesar.purpose.main.Main'
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-tasks {
-    run{
-        standardInput = System.in
-    }
 }
 
 dependencies {
