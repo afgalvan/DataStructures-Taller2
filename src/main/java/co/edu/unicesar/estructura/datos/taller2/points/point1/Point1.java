@@ -7,18 +7,19 @@ public class Point1 {
 
     public static void main(String[] args) {
         val list = new SimplyLinkedList<Integer>();
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(4);
-        list.addSorting(3, Integer::compareTo);
+        addUnique(list, 5);
+        addUnique(list, 2);
+        addUnique(list, 3);
+        addUnique(list, 5);
+        addUnique(list, 9);
+        addUnique(list, 2);
 
-        val listString = new SimplyLinkedList<String>();
-        listString.add("Javier");
-        listString.add("Santiago");
-        listString.addSorting("Maria", String::compareTo);
-        listString.addSorting("Andres", String::compareTo);
+        System.out.println(list);
+    }
 
-        System.out.println(listString);
+    public static void addUnique(SimplyLinkedList<Integer> list, int data) {
+        if (!list.contains(data)) {
+            list.addSorting(data, Integer::compareTo);
+        }
     }
 }

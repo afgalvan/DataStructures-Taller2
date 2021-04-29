@@ -65,39 +65,33 @@ public class SimplyLinkedList<T> extends LinkedList<T> {
         return (cursor.next == node) ? cursor : null;
     }
 
-    @Contract(mutates = "this")
-    private void linkFirst(SimplyNode<T> node) {
-        node.next = this.first;
-        this.first = node;
-    }
-
-    @Contract(mutates = "this")
-    private void linkLast(SimplyNode<T> node) {
-        this.last.next = node;
-        this.last = node;
+    @Override
+    protected void linkFirst(T item) {
+        val simplyNode = new SimplyNode<>(item);
+        simplyNode.next = this.first;
+        this.first = simplyNode;
     }
 
     @Override
-    public void addSorting(T item, Comparator<? super T> comparator) {
-        val node = new SimplyNode<>(item);
+    protected void linkLast(T item) {
+        val simplyNode = new SimplyNode<>(item);
+        this.last.next = simplyNode;
+        this.last = simplyNode;
+    }
 
-        if (comparator.compare(item, this.first.item) <= 0) {
-            linkFirst(node);
-        } else if (comparator.compare(item, this.last.item) >= 0) {
-            linkLast(node);
-        } else {
-            SimplyNode<T> cursor = this.first;
-            while (
-                cursor.next != null &&
-                comparator.compare(item, cursor.next.item) >= 0
-            ) {
-                cursor = cursor.next;
-            }
+    @Override
+    protected void linkAtMid(T item, Comparator<? super T> comparator) {
+        val simplyNode = new SimplyNode<>(item);
+        SimplyNode<T> cursor = this.first;
 
-            node.next = cursor.next;
-            cursor.next = node;
+        while (
+            cursor.next != null && comparator.compare(item, cursor.next.item) >= 0
+        ) {
+            cursor = cursor.next;
         }
-        this.size++;
+
+        simplyNode.next = cursor.next;
+        cursor.next = simplyNode;
     }
 
     @Contract(mutates = "this")
@@ -167,6 +161,10 @@ public class SimplyLinkedList<T> extends LinkedList<T> {
 
         public SimplyNode(E item) {
             super(item);
+        }
+
+        public SimplyNode(Node<E> node) {
+            super(node.item);
         }
 
         @Override

@@ -6,6 +6,8 @@ import java.util.Comparator;
 public interface List<T> {
     Node<T> getFirst();
 
+    Node<T> getLast();
+
     int size();
 
     boolean isEmpty();
@@ -23,6 +25,10 @@ public interface List<T> {
     void addSorting(T item, Comparator<? super T> comparator);
 
     default boolean contains(T item) {
+        if (this.isEmpty()) {
+            return false;
+        }
+
         Node<T> cursor = this.getFirst();
 
         while (cursor.item != item && cursor.next() != null) {

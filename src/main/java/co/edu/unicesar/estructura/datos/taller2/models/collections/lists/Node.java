@@ -1,11 +1,12 @@
 package co.edu.unicesar.estructura.datos.taller2.models.collections.lists;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
 public abstract class Node<T> {
 
     T item;
+
+    public Node(T item) {
+        this.item = item;
+    }
 
     public abstract Node<T> next();
 

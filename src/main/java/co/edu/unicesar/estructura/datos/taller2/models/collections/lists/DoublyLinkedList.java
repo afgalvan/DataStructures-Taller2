@@ -58,7 +58,32 @@ public class DoublyLinkedList<T> extends LinkedList<T> {
     }
 
     @Override
-    public void addSorting(T item, Comparator<? super T> comparator) {}
+    protected void linkFirst(T item) {
+        DoublyNode<T> doublyNode = new DoublyNode<>(item);
+        doublyNode.next = this.first;
+        this.first.prev = doublyNode;
+        this.first = doublyNode;
+    }
+
+    @Override
+    protected void linkLast(T item) {
+        DoublyNode<T> doublyNode = new DoublyNode<>(item);
+        doublyNode.prev = this.last;
+        this.last.next = doublyNode;
+        this.last = doublyNode;
+    }
+
+    @Override
+    protected void linkAtMid(T item, Comparator<? super T> comparator) {
+        DoublyNode<T> cursor = this.first;
+        DoublyNode<T> doublyNode = new DoublyNode<>(item);
+        while (cursor.next != null && comparator.compare(item, cursor.item) >= 0) {
+            cursor = cursor.next;
+        }
+
+        doublyNode.next = cursor.next;
+        cursor.next = doublyNode;
+    }
 
     @Override
     public String toString() {
@@ -83,7 +108,6 @@ public class DoublyLinkedList<T> extends LinkedList<T> {
         return displayable.toString();
     }
 
-
     public static class DoublyNode<E> extends Node<E> {
 
         DoublyNode<E> next;
@@ -91,6 +115,10 @@ public class DoublyLinkedList<T> extends LinkedList<T> {
 
         public DoublyNode(E item) {
             super(item);
+        }
+
+        public DoublyNode(Node<E> node) {
+            super(node.item);
         }
 
         @Override
