@@ -1,4 +1,4 @@
-package co.edu.unicesar.purpose.main;
+package co.edu.unicesar.estructura.datos.taller2.points;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

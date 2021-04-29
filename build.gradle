@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'idea'
 }
 
 group 'org.example'
@@ -7,6 +9,25 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+tasks {
+    task runPoint(type:JavaExec) {
+        doFirst {
+            print "\033\143"
+        }
+
+        classpath = sourceSets.main.runtimeClasspath
+        String point = System.getProperty("args")
+        main = project.hasProperty("mainClass") ? project.getProperty("mainClass") : "co.edu.unicesar.estructura.datos.taller2.points.point" + point + ".Point" + point
+    }
+
+    run {
+        standardInput = System.in
+    }
 }
 
 dependencies {

@@ -1,16 +1,24 @@
 package co.edu.unicesar.estructura.datos.taller2.points.point1;
 
 import co.edu.unicesar.estructura.datos.taller2.models.collections.lists.SimplyLinkedList;
-import java.util.LinkedList;
+import lombok.val;
 
 public class Point1 {
 
     public static void main(String[] args) {
-        LinkedList<String> l;
-        SimplyLinkedList<Integer> list = new SimplyLinkedList<>();
-        list.add(5);
+        val list = new SimplyLinkedList<Integer>();
+        list.add(1);
         list.add(2);
         list.add(3);
-        System.out.println(list);
+        list.add(4);
+        list.addSorting(3, Integer::compareTo);
+
+        val listString = new SimplyLinkedList<String>();
+        listString.add("Javier");
+        listString.add("Santiago");
+        listString.addSorting("Maria", String::compareTo);
+        listString.addSorting("Andres", String::compareTo);
+
+        System.out.println(listString);
     }
 }
