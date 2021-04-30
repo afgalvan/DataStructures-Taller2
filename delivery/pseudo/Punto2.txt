@@ -37,7 +37,7 @@ FUNCION insercionOrdenada(ListaEnlazada lista, Nodo nodo)
             FIN_MIENTRAS
             nodo^.anterior <- cursor^.anterior
             nodo^.anterior^.siguiente <- nodo
-            nodo^.siguiente
+            nodo^.siguiente <- cursor
             cursor^.anterior <- nodo
         FIN_SI
     FIN_SI
@@ -79,10 +79,10 @@ FUNCION llenarDatos(ListaEnlazada lista)
             pedirDatos(nodo)
             insercionOrdenada(lista, nodo)
             ESCRIBIR "Desea agregar otro nodo a la lista? [S/N]: "
-            LEER(continuar) 
+            LEER(continuar)
         FIN_SI
     FIN_MIENTRAS
-FIN llenarDatos 
+FIN llenarDatos
 
 
 FUNCION moverCabeza(ListaEnlazada base, ListaEnlazada objetivo)

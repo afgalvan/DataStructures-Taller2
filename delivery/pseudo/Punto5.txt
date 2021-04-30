@@ -39,9 +39,9 @@ FUNCION llenarDatos(ListaEnlazada lista)
         SINO
             pedirDatos(nodo)
             agregarNodo(lista, nodo)
-            ESCRIBIR "Desea agregar otro nodo a la lista? [S/N]: "
-            LEER(continuar) 
         FIN_SI
+        ESCRIBIR "Desea agregar otro nodo a la lista? [S/N]: "
+        LEER(continuar) 
     FIN_MIENTRAS
 FIN llenarDatos
 

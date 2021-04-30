@@ -1,6 +1,5 @@
 package co.edu.unicesar.estructura.datos.taller2.models.collections.lists;
 
-import co.edu.unicesar.estructura.datos.taller2.models.collections.Contract;
 import java.util.Comparator;
 import lombok.Getter;
 import lombok.val;
@@ -58,32 +57,6 @@ public class DoublyLinkedList<T> extends LinkedList<T> {
         this.size--;
     }
 
-    @Contract(mutates = "this")
-    private void deleteMiddleNode(DoublyNode<T> toDelete) {
-        DoublyNode<T> cursor = toDelete.getPrev();
-
-        if (cursor.next == toDelete) {
-            cursor.next = toDelete.next;
-            toDelete.next = null;
-            this.size--;
-        }
-    }
-
-    @Contract(mutates = "this")
-    public void remove(DoublyNode<T> node) {
-        if (this.isEmpty()) {
-            return;
-        }
-
-        if (node == this.first) {
-            this.pop();
-        } else if (node == this.last) {
-            this.detach();
-        } else {
-            this.deleteMiddleNode(node);
-        }
-    }
-
     @Override
     protected void linkFirst(T item) {
         DoublyNode<T> doublyNode = new DoublyNode<>(item);
@@ -101,7 +74,7 @@ public class DoublyLinkedList<T> extends LinkedList<T> {
     }
 
     @Override
-    protected void linkAtMiddle(T item, Comparator<? super T> comparator) {
+    protected void linkAtMid(T item, Comparator<? super T> comparator) {
         DoublyNode<T> cursor = this.first;
         DoublyNode<T> doublyNode = new DoublyNode<>(item);
         while (cursor.next != null && comparator.compare(item, cursor.item) >= 0) {
@@ -135,7 +108,6 @@ public class DoublyLinkedList<T> extends LinkedList<T> {
         return displayable.toString();
     }
 
-    @Getter
     public static class DoublyNode<E> extends Node<E> {
 
         DoublyNode<E> next;

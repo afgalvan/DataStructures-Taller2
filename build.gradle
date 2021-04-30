@@ -16,6 +16,7 @@ targetCompatibility = 1.8
 
 tasks {
     task runPoint(type:JavaExec) {
+        standardInput = System.in
         doFirst {
             print "\033\143"
         }

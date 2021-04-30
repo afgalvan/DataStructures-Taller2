@@ -43,7 +43,7 @@ FUNCION agregarNodo(ListaEnlazada lista, Nodo persona)
 FIN agregarNodo
 
 
-FUNCION registrarPersona(ListaEnlazada lista)
+FUNCION registrarPersonas(ListaEnlazada lista)
     ESCRIBIR "REGISTRAR NOMBRE"
     continuar <- "s"
 
@@ -60,7 +60,7 @@ FUNCION registrarPersona(ListaEnlazada lista)
             LEER(continuar) 
         FIN_SI
     FIN_MIENTRAS
-FIN registrarPersona
+FIN registrarPersonas
 
 
 FUNCION buscarNodoPorNombre(ListaEnlazada lista, char[] nombre)
@@ -152,7 +152,7 @@ PROGRAMA_PRINCIPAL
     // Crear una lista para guardar los personas borradas
     ListaEnlazada papelera
 
-    registrarPersona(listaPersonas)
+    registrarPersonas(listaPersonas)
     trasladarPersona("borrar", listaPersonas, papelera)
 
     ESCRIBIR ("Desea recuperar un nombre borrado [S/N]: ")

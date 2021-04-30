@@ -37,18 +37,4 @@ public interface List<T> {
 
         return cursor.item == item;
     }
-
-    default Node<T> getNodeOf(T item) {
-        if (this.isEmpty()) {
-            return null;
-        }
-
-        Node<T> cursor = this.getFirst();
-
-        while (!cursor.item.equals(item) && cursor.next() != null) {
-            cursor = cursor.next();
-        }
-
-        return (cursor.item.equals(item)) ? cursor : null;
-    }
 }

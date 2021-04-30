@@ -80,7 +80,7 @@ public class SimplyLinkedList<T> extends LinkedList<T> {
     }
 
     @Override
-    protected void linkAtMiddle(T item, Comparator<? super T> comparator) {
+    protected void linkAtMid(T item, Comparator<? super T> comparator) {
         val simplyNode = new SimplyNode<>(item);
         SimplyNode<T> cursor = this.first;
 
@@ -106,17 +106,17 @@ public class SimplyLinkedList<T> extends LinkedList<T> {
     }
 
     @Contract(mutates = "this")
-    public void remove(SimplyNode<T> node) {
+    public void remove(SimplyNode<T> item) {
         if (isEmpty()) {
             return;
         }
 
-        if (node == this.first) {
+        if (item == this.first) {
             this.pop();
-        } else if (node == this.last) {
+        } else if (item == this.last) {
             this.detach();
         } else {
-            this.deleteMiddleNode(node);
+            this.deleteMiddleNode(item);
         }
     }
 
@@ -151,7 +151,6 @@ public class SimplyLinkedList<T> extends LinkedList<T> {
         return displayable.toString();
     }
 
-    @Getter
     public static class SimplyNode<E> extends Node<E> {
 
         SimplyNode<E> next;

@@ -24,7 +24,7 @@ public abstract class LinkedList<T> implements List<T> {
     protected abstract void linkLast(T item);
 
     @Contract(mutates = "this")
-    protected abstract void linkAtMiddle(T item, Comparator<? super T> comparator);
+    protected abstract void linkAtMid(T item, Comparator<? super T> comparator);
 
     @Override
     public void addSorting(T item, Comparator<? super T> comparator) {
@@ -38,7 +38,7 @@ public abstract class LinkedList<T> implements List<T> {
         } else if (comparator.compare(item, this.getLast().item) >= 0) {
             linkLast(item);
         } else {
-            linkAtMiddle(item, comparator);
+            linkAtMid(item, comparator);
         }
         this.size++;
     }

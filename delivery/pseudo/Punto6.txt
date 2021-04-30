@@ -45,7 +45,6 @@ FIN agregarNodo1
 
 
 FUNCION llenarDatos1(ListaEnlazada1 lista1)
-    ESCRIBIR  "LLENADO DE DATOS"
     continuar <- "s"
 
     MIENTRAS (continuar = "s") HACER
@@ -183,12 +182,14 @@ FUNCION borrarNodo(ListaEnlazada1 lista1, Nodo1 nodoBorrar)
 FIN borrarNodo
 
 FUNCION borrar(ListaEnlazada1 lista1, entero codigo)
-    Nodo1 *nodoBorrar <- buscarNodoPorCodigo(lista1, codigo)
-    SI (nodoBorrar <> NULL) ENTONCES
-        borrarNodo(lista1, nodoBorrar)
-        SINO
-            ESCRIBIR "Nodo no encontrado en la lista 1"
-    FIN_SI
+    Nodo1 *nodoBorrar
+
+    REPETIR
+        nodoBorrar <- buscarNodoPorCodigo(lista1, codigo)
+        SI (nodoBorrar <> NULL) ENTONCES
+            borrarNodo(lista1, nodoBorrar)
+        FIN_SI
+    HASTA (nodoBorrar = NULL)
 FIN borrar
 
 
@@ -238,7 +239,10 @@ PROGRAMA_PRINCIPAL
     ListaEnlazada1 lista1
     ListaEnlazada2 lista2
 
+    ESCRIBIR  "LLENADO DE DATOS LISTA 1"
     llenarDatos1(lista1)
+    ESCRIBIR  "-------------------------"
+    ESCRIBIR  "LLENADO DE DATOS LISTA 2"
     llenarDatos2(lista2)
     
     ESCRIBIR "Lista 1 original"

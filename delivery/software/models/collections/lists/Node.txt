@@ -1,8 +1,5 @@
 package co.edu.unicesar.estructura.datos.taller2.models.collections.lists;
 
-import lombok.Getter;
-
-@Getter
 public abstract class Node<T> {
 
     T item;
