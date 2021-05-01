@@ -130,7 +130,7 @@ public class DoublyLinkedList<T> extends LinkedList<T> {
         this.forEach(
                 node -> {
                     displayable.append(node);
-                    if (node.next() != null) {
+                    if (node.getNext() != null) {
                         displayable.append(" <-> ");
                     } else {
                         displayable.append(" -> NULL");
@@ -150,11 +150,6 @@ public class DoublyLinkedList<T> extends LinkedList<T> {
 
         public DoublyNode(E item) {
             super(item);
-        }
-
-        @Override
-        public Node<E> next() {
-            return next;
         }
     }
 }

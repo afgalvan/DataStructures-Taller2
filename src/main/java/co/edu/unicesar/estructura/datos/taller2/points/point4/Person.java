@@ -1,16 +1,18 @@
 package co.edu.unicesar.estructura.datos.taller2.points.point4;
 
-import co.edu.unicesar.estructura.datos.taller2.models.ValueObject;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
-@AllArgsConstructor
-@Data
-@ValueObject
-public class Person {
+@Getter
+@Setter
+public class Person extends Entity {
 
-    private String id;
     private String name;
+
+    public Person(String id, String name) {
+        super(id);
+        this.name = name;
+    }
 }

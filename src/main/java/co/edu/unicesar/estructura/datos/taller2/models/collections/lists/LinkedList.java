@@ -49,12 +49,13 @@ public abstract class LinkedList<T> implements List<T> {
         Node<T> cursor = this.getFirst();
 
         while (cursor != null) {
-            Node<T> next = cursor.next();
+            Node<T> next = cursor.getNext();
             consumer.accept(cursor);
             cursor = next;
         }
     }
 
+    @Contract(mutates = "this")
     public void map(Function<T, Boolean> function) {
         this.forEach(
                 n -> {

@@ -34,8 +34,8 @@ public interface List<T> {
 
         Node<T> cursor = this.getFirst();
 
-        while (!cursor.item.equals(item) && cursor.next() != null) {
-            cursor = cursor.next();
+        while (!cursor.item.equals(item) && cursor.getNext() != null) {
+            cursor = cursor.getNext();
         }
 
         return (cursor.item.equals(item)) ? cursor : null;

@@ -68,7 +68,6 @@ FIN pop
 
 FUNCION detach(ListaEnlazada lista)
     Nodo *cursor
-    cursor <- lista.cabeza
 
     SI (lista.cabeza <> NULL ) ENTONCES 
         cursor <- lista.cabeza

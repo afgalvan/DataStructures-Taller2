@@ -157,10 +157,5 @@ public class SimplyLinkedList<T> extends LinkedList<T> {
         public SimplyNode(E item) {
             super(item);
         }
-
-        @Override
-        public Node<E> next() {
-            return next;
-        }
     }
 }
