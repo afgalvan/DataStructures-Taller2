@@ -117,7 +117,7 @@ FUNCION borrarNodo(ListaEnlazada lista, Nodo nodoBorrar)
 FIN borrarNodo
 
 
-FUNCION disyuntarListas(ListaEnlazada listaA, ListaEnlazada listaB)
+FUNCION diferenciarListas(ListaEnlazada listaA, ListaEnlazada listaB)
     Nodo *cursorA, *cursorB
 
     cursorB <- listaB.cabeza
@@ -134,7 +134,7 @@ FUNCION disyuntarListas(ListaEnlazada listaA, ListaEnlazada listaB)
         cursorB <- cursorB^.siguiente
     FIN_MIENTRAS
 
-FIN disyuntarListas
+FIN diferenciarListas
 
 
 FUNCION mostrarLista(ListaEnlazada lista)
@@ -153,15 +153,19 @@ PROGRAMA_PRINCIPAL
     ListaEnlazada lista1
     ListaEnlazada lista2
 
+    ESCRIBIR  "LLENADO DE DATOS LISTA 1"
     llenarDatos(lista1)
+    ESCRIBIR  "-------------------------"
+    ESCRIBIR  "LLENADO DE DATOS LISTA 2"
     llenarDatos(lista2)
 
+    ESCRIBIR "Lista 1 original"
     mostrarLista(lista1)
+    ESCRIBIR "Lista 2"
     mostrarLista(lista2)
 
-    disyuntarListas(lista1, lista2)
-    
+    diferenciarListas(lista1, lista2)
+    ESCRIBIR "Lista 1 retirando elementos iguales."
     mostrarLista(lista1)
-    mostrarLista(lista2)   
 FIN PROGRAMA_PRINCIPAL
 

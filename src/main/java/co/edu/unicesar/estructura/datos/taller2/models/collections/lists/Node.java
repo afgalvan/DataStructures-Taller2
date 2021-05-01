@@ -17,4 +17,12 @@ public abstract class Node<T> {
     public String toString() {
         return this.item.toString();
     }
+
+    public DoublyLinkedList.DoublyNode<T> toDoubly() {
+        return (DoublyLinkedList.DoublyNode<T>) this;
+    }
+
+    public SimplyLinkedList.SimplyNode<T> toSimply() {
+        return (SimplyLinkedList.SimplyNode<T>) this;
+    }
 }

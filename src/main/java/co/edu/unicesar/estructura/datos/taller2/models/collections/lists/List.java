@@ -24,19 +24,8 @@ public interface List<T> {
     @Contract(mutates = "this")
     void addSorting(T item, Comparator<? super T> comparator);
 
-    default boolean contains(T item) {
-        if (this.isEmpty()) {
-            return false;
-        }
-
-        Node<T> cursor = this.getFirst();
-
-        while (cursor.item != item && cursor.next() != null) {
-            cursor = cursor.next();
-        }
-
-        return cursor.item == item;
-    }
+    @Contract(mutates = "this")
+    void remove(Node<T> node);
 
     default Node<T> getNodeOf(T item) {
         if (this.isEmpty()) {
@@ -50,5 +39,9 @@ public interface List<T> {
         }
 
         return (cursor.item.equals(item)) ? cursor : null;
+    }
+
+    default boolean contains(T item) {
+        return this.getNodeOf(item) != null;
     }
 }

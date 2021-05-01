@@ -123,9 +123,11 @@ FUNCION moverDatosPares(ListaEnlazada lista, ListaEnlazada objetivo)
     Nodo *cursor <- lista.cabeza
 
     MIENTRAS (cursor <> NULL) HACER
+        Nodo *siguienteAux <- cursor^.siguiente
         SI (cursor^.dato MOD 2 = 0) ENTONCES
             mover(cursor, lista, objetivo)
         FIN_SI
+        cursor = siguienteAux
     FIN_MIENTRAS
 FIN moverDatosPares
 
@@ -147,10 +149,17 @@ PROGRAMA_PRINCIPAL
     ListaEnlazada listaOriginal
     ListaEnlazada listaPares
 
+    ESCRIBIR  "LLENADO DE DATOS LISTA 1"
     llenarDatos(listaOriginal)
+    
+    ESCRIBIR  "-------------------------"
+    ESCRIBIR  "Lista original"
     mostrarLista(listaOriginal)
  
+    ESCRIBIR  "-------------------------"
     moverDatosPares(listaOriginal, listaPares)
+    ESCRIBIR  "Lista original sin valores pares"
     mostrarLista(listaOriginal)
+    ESCRIBIR  "Lista con los valores pares"
     mostrarLista(listaPares)
 FIN PROGRAMA_PRINCIPAL

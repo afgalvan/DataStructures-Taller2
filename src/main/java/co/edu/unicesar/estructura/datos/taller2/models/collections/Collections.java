@@ -23,7 +23,7 @@ public final class Collections {
         }
     }
 
-    public static void addUniqueSorting(LinkedList<Integer> list, Integer data) {
+    public static void addUniqueSorting(LinkedList<Integer> list, int data) {
         if (!list.contains(data)) {
             list.addSorting(data, Integer::compareTo);
         }

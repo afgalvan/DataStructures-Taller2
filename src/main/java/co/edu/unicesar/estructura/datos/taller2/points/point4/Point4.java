@@ -1,5 +1,11 @@
 package co.edu.unicesar.estructura.datos.taller2.points.point4;
 
+/*
+ * ESCRIBA UNA SOLUCIÓN AL PROBLEMA CONSISTENTE EN ACTUALIZAR UN CAMPO DE INFORMACIÓN DE
+ * UNA LISTA ENLAZADA SIMPLE BASADO EN LOS DATOS DE OTRA LISTA IGUALMENTE ENLAZADA SIMPLE.
+ * (a esta actividad se le denomina CRUZAR las listas).
+ */
+
 import co.edu.unicesar.estructura.datos.taller2.models.collections.lists.SimplyLinkedList;
 import lombok.val;
 

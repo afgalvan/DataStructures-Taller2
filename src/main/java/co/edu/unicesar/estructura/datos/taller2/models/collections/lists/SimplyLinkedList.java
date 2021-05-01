@@ -2,6 +2,7 @@ package co.edu.unicesar.estructura.datos.taller2.models.collections.lists;
 
 import co.edu.unicesar.estructura.datos.taller2.models.collections.Contract;
 import java.util.Comparator;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.val;
 
@@ -105,18 +106,19 @@ public class SimplyLinkedList<T> extends LinkedList<T> {
         }
     }
 
-    @Contract(mutates = "this")
-    public void remove(SimplyNode<T> node) {
-        if (isEmpty()) {
+    @Override
+    public void remove(Node<T> node) {
+        if (this.isEmpty()) {
             return;
         }
 
-        if (node == this.first) {
+        SimplyNode<T> toDelete = node.toSimply();
+        if (toDelete.equals(this.first)) {
             this.pop();
-        } else if (node == this.last) {
+        } else if (toDelete.equals(last)) {
             this.detach();
         } else {
-            this.deleteMiddleNode(node);
+            this.deleteMiddleNode(toDelete);
         }
     }
 
@@ -140,28 +142,20 @@ public class SimplyLinkedList<T> extends LinkedList<T> {
     @Override
     public String toString() {
         StringBuilder displayable = new StringBuilder();
-        SimplyNode<T> cursor = this.first;
 
-        while (cursor != null) {
-            displayable.append(cursor).append(" -> ");
-            cursor = cursor.next;
-        }
-
+        this.forEach(node -> displayable.append(node).append(" -> "));
         displayable.append("NULL");
         return displayable.toString();
     }
 
     @Getter
+    @EqualsAndHashCode(callSuper = false)
     public static class SimplyNode<E> extends Node<E> {
 
         SimplyNode<E> next;
 
         public SimplyNode(E item) {
             super(item);
-        }
-
-        public SimplyNode(Node<E> node) {
-            super(node.item);
         }
 
         @Override

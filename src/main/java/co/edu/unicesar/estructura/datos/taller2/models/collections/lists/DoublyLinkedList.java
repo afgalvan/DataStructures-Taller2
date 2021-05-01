@@ -2,6 +2,7 @@ package co.edu.unicesar.estructura.datos.taller2.models.collections.lists;
 
 import co.edu.unicesar.estructura.datos.taller2.models.collections.Contract;
 import java.util.Comparator;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.val;
 
@@ -64,23 +65,26 @@ public class DoublyLinkedList<T> extends LinkedList<T> {
 
         if (cursor.next == toDelete) {
             cursor.next = toDelete.next;
+            toDelete.next.prev = cursor;
             toDelete.next = null;
+            toDelete.prev = null;
             this.size--;
         }
     }
 
-    @Contract(mutates = "this")
-    public void remove(DoublyNode<T> node) {
+    @Override
+    public void remove(Node<T> node) {
         if (this.isEmpty()) {
             return;
         }
 
-        if (node == this.first) {
+        DoublyNode<T> toDelete = node.toDoubly();
+        if (toDelete.equals(first)) {
             this.pop();
-        } else if (node == this.last) {
+        } else if (toDelete.equals(last)) {
             this.detach();
         } else {
-            this.deleteMiddleNode(node);
+            this.deleteMiddleNode(toDelete);
         }
     }
 
@@ -108,34 +112,37 @@ public class DoublyLinkedList<T> extends LinkedList<T> {
             cursor = cursor.next;
         }
 
-        doublyNode.next = cursor.next;
-        cursor.next = doublyNode;
+        doublyNode.prev = cursor.prev;
+        doublyNode.next = cursor;
+        cursor.prev.next = doublyNode;
+        cursor.prev = doublyNode;
     }
 
     @Override
     public String toString() {
         StringBuilder displayable = new StringBuilder();
-        DoublyNode<T> cursor = this.first;
 
         displayable.append("NULL");
-        if (cursor != null) {
+        if (this.first != null) {
             displayable.append(" <- ");
         }
 
-        while (cursor != null) {
-            displayable.append(cursor);
-            if (cursor.next != null) {
-                displayable.append(" <-> ");
-            } else {
-                displayable.append(" -> NULL");
-            }
-            cursor = cursor.next;
-        }
+        this.forEach(
+                node -> {
+                    displayable.append(node);
+                    if (node.next() != null) {
+                        displayable.append(" <-> ");
+                    } else {
+                        displayable.append(" -> NULL");
+                    }
+                }
+            );
 
         return displayable.toString();
     }
 
     @Getter
+    @EqualsAndHashCode(callSuper = false)
     public static class DoublyNode<E> extends Node<E> {
 
         DoublyNode<E> next;
@@ -143,10 +150,6 @@ public class DoublyLinkedList<T> extends LinkedList<T> {
 
         public DoublyNode(E item) {
             super(item);
-        }
-
-        public DoublyNode(Node<E> node) {
-            super(node.item);
         }
 
         @Override

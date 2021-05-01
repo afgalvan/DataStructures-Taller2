@@ -13,7 +13,7 @@ DEFINIR Nodo
     Nodo *anterior
 FIN Nodo
 
-// Crear una estructura personalizada para representar las listas enlazadas
+// Crear una estructura nombrelizada para representar las listas enlazadas
 REGISTRO ListaEnlazada
     Nodo *cabeza
     Nodo *ultimo
@@ -21,63 +21,62 @@ FIN REGISTRO
 
 
 // Llenar los campos de un nodo dado
-FUNCION pedirDatos(Nodo persona)
+FUNCION pedirDatos(Nodo nombre)
     ESCRIBIR "Introduzca el nombre: "
-    LEER(persona^.nombre)
+    LEER(nombre^.nombre)
 FIN pedirDatos
 
 
 // Append nodo O(1)
-FUNCION agregarNodo(ListaEnlazada lista, Nodo persona)
-    persona^.anterior <- NULL
-    persona^.siguiente <- NULL
+FUNCION agregarNodo(ListaEnlazada lista, Nodo nombre)
+    nombre^.anterior <- NULL
+    nombre^.siguiente <- NULL
 
     SI (lista.cabeza = NULL) ENTONCES
-        lista.cabeza <- persona
-        lista.ultimo <- persona
+        lista.cabeza <- nombre
+        lista.ultimo <- nombre
     SINO
-        lista.ultimo^.siguiente <- persona
-        persona^.anterior <- lista^.ultimo
-        lista.ultimo <- persona
+        lista.ultimo^.siguiente <- nombre
+        nombre^.anterior <- lista^.ultimo
+        lista.ultimo <- nombre
     FIN_SI
 FIN agregarNodo
 
 
-FUNCION registrarPersonas(ListaEnlazada lista)
-    ESCRIBIR "REGISTRAR NOMBRE"
+FUNCION registrarNombre(ListaEnlazada lista)
     continuar <- "s"
 
     MIENTRAS (continuar = "s") HACER
         // Crear nuevo nodo
-        Nodo *persona
-        NEW(persona)
-        SI (persona = NULL) ENTONCES
+        Nodo *nombre
+        NEW(nombre)
+        SI (nombre = NULL) ENTONCES
             ESCRIBIR "No hay memoria disponible en el sistema"
         SINO
-            pedirDatos(persona)
-            agregarNodo(lista, persona)
-            ESCRIBIR "Desea agregar otro registro de persona a la lista? [S/N]: "
+            pedirDatos(nombre)
+            agregarNodo(lista, nombre)
+            ESCRIBIR "Desea agregar otro registro de nombre a la lista? [S/N]: "
             LEER(continuar) 
         FIN_SI
     FIN_MIENTRAS
-FIN registrarPersonas
+FIN registrarNombre
 
 
 FUNCION buscarNodoPorNombre(ListaEnlazada lista, char[] nombre)
     encontrado <- false
     Nodo *cursor <- lista.cabeza
-    Nodo *personaEncontrada # NULL
+    Nodo *nombreEncontrada # NULL
     
     MIENTRAS (cursor <> NULL) AND (encontrado = false) HACER
         SI (cursor^.nombre = nombre) ENTONCES
-            personaEncontrada <- cursor
+            nombreEncontrada <- cursor
             encontrado <- true
         SINO
             cursor <- cursor^.siguiente
         FIN_SI
     FIN_MIENTRAS
 
-    RETORNAR personaEncontrada
+    RETORNAR nombreEncontrada
 FIN buscarNodoPorNombre
 
 
@@ -115,7 +114,7 @@ FUNCION mover(Nodo nodoMover, ListaEnlazada base, ListaEnlazada objetivo)
 FIN mover
 
 
-FUNCION trasladarPersona(char[] accion, ListaEnlazada lista, ListaEnlazada objetivo)
+FUNCION trasladarNombre(char[] accion, ListaEnlazada lista, ListaEnlazada objetivo)
     continuar <- "s"
 
     SI (lista.cabeza = NULL) ENTONCES
@@ -144,20 +143,47 @@ FUNCION trasladarPersona(char[] accion, ListaEnlazada lista, ListaEnlazada objet
         ESCRIBIR "Desea ", accion, " otro nombre? [S/N]: "
         LEER(continuar)
     FIN_MIENTRAS
-FIN trasladarPersona
+FIN trasladarNombre
+
+
+FUNCION mostrarLista(ListaEnlazada lista)
+    Nodo *cursor
+    cursor <- lista.cabeza
+    ESCRIBIR "NULL <- "
+    MIENTRAS (cursor <> NULL) HACER
+        ESCRIBIR cursor^.dato, " <-> "
+        cursor <- cursor^.siguiente
+    FIN_MIENTRAS
+
+    ESCRIBIR " -> NULL"
+FIN mostrarLista
 
 
 PROGRAMA_PRINCIPAL
-    ListaEnlazada listaPersonas
-    // Crear una lista para guardar los personas borradas
+    ListaEnlazada listaNombres
+    // Crear una lista para guardar los nombres borradas
     ListaEnlazada papelera
 
-    registrarPersonas(listaPersonas)
-    trasladarPersona("borrar", listaPersonas, papelera)
+    ESCRIBIR  "Llenar lista de nombres"
+    registrarNombre(listaNombres)
+    
+    ESCRIBIR  "-------------------------"
+    ESCRIBIR  "Lista de nombres"
+    mostrarLista(listaNombres)
 
-    ESCRIBIR ("Desea recuperar un nombre borrado [S/N]: ")
-    LEER(recuperar)
-    SI (recuperar = "s") ENTONCES
-        trasladarPersona("recuperar", papelera, listaPersonas)
-    FIN_SI
+    ESCRIBIR  "-------------------------"
+    ESCRIBIR  "Borrar nombres"
+    trasladarNombre("borrar", listaNombres, papelera)
+    ESCRIBIR  "Lista de nombres"
+    mostrarLista(listaNombres)
+    ESCRIBIR  "Papelera"
+    mostrarLista(papelera)
+
+    ESCRIBIR  "-------------------------"
+    ESCRIBIR  "Recuperar nombres"
+    trasladarNombre("recuperar", papelera, listaNombres)
+    ESCRIBIR  "Lista de nombres"
+    mostrarLista(listaNombres)
+    ESCRIBIR  "Papelera"
+    mostrarLista(papelera)
 FIN PROGRAMA_PRINCIPAL

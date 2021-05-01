@@ -7,11 +7,9 @@ package co.edu.unicesar.estructura.datos.taller2.points.point5;
  * enteros en cada nodo.
  */
 
-
 import co.edu.unicesar.estructura.datos.taller2.models.collections.lists.SimplyLinkedList;
-import lombok.val;
-
 import java.util.Scanner;
+import lombok.val;
 
 public class Point5 {
 

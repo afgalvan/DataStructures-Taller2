@@ -251,7 +251,8 @@ PROGRAMA_PRINCIPAL
     mostrarLista2(lista2)
 
     ejecutarAccion(lista1, lista2)
-    ESCRIBIR "Lista 1 modificada"
+    ESCRIBIR "Resultado"
+    ESCRIBIR "Lista 1"
     mostrarLista1(lista1)
     ESCRIBIR "Lista 2"
     mostrarLista2(lista2)
