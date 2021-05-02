@@ -34,9 +34,10 @@ public class Point1 {
         showResults(doublyList, simplyList);
     }
 
-
-
-    public static <T> void showResults(DoublyLinkedList<T> doublyList, SimplyLinkedList<T> simplyList) {
+    public static <T> void showResults(
+        DoublyLinkedList<T> doublyList,
+        SimplyLinkedList<T> simplyList
+    ) {
         System.out.println(simplyList);
     }
 }

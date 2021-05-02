@@ -3,7 +3,6 @@ package co.edu.unicesar.estructura.datos.taller2.models.collections.lists;
 import co.edu.unicesar.estructura.datos.taller2.models.collections.Contract;
 import java.util.Comparator;
 import java.util.function.Function;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.val;
