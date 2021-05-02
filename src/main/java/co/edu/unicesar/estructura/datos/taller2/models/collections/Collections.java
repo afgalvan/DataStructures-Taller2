@@ -8,12 +8,6 @@ public final class Collections {
 
     private Collections() {}
 
-    public static <T> void addUnique(LinkedList<T> list, T data) {
-        if (!list.contains(data)) {
-            list.add(data);
-        }
-    }
-
     public static <T> void addUniqueSorting(
         LinkedList<T> list,
         T data,
@@ -28,7 +22,9 @@ public final class Collections {
         Collections.addUniqueSorting(list, data, Integer::compareTo);
     }
 
-    public static void addUniqueSorting(LinkedList<String> list, String data) {
-        Collections.addUniqueSorting(list, data, String::compareTo);
+    public static void addUniqueReverse(LinkedList<Integer> list, int data) {
+        if (!list.contains(data)) {
+            list.addReverse(data, Integer::compareTo);
+        }
     }
 }

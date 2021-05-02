@@ -2,6 +2,8 @@ package co.edu.unicesar.estructura.datos.taller2.models.collections.lists;
 
 import co.edu.unicesar.estructura.datos.taller2.models.collections.Contract;
 import java.util.Comparator;
+import java.util.function.Function;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.val;
@@ -81,12 +83,12 @@ public class SimplyLinkedList<T> extends LinkedList<T> {
     }
 
     @Override
-    protected void linkAtMiddle(T item, Comparator<? super T> comparator) {
+    protected void linkAtMiddle(T item, Function<T, Boolean> comparison) {
         val simplyNode = new SimplyNode<>(item);
         SimplyNode<T> cursor = this.first;
 
         while (
-            cursor.next != null && comparator.compare(item, cursor.next.item) >= 0
+            cursor.next != null && comparison.apply(cursor.next.item)
         ) {
             cursor = cursor.next;
         }

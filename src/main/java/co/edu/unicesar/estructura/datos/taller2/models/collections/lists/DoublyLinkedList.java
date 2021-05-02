@@ -2,6 +2,8 @@ package co.edu.unicesar.estructura.datos.taller2.models.collections.lists;
 
 import co.edu.unicesar.estructura.datos.taller2.models.collections.Contract;
 import java.util.Comparator;
+import java.util.function.Function;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.val;
@@ -105,10 +107,10 @@ public class DoublyLinkedList<T> extends LinkedList<T> {
     }
 
     @Override
-    protected void linkAtMiddle(T item, Comparator<? super T> comparator) {
+    protected void linkAtMiddle(T item, Function<T, Boolean> comparison) {
         DoublyNode<T> cursor = this.first;
         DoublyNode<T> doublyNode = new DoublyNode<>(item);
-        while (cursor.next != null && comparator.compare(item, cursor.item) >= 0) {
+        while (cursor.next != null && comparison.apply(cursor.item)) {
             cursor = cursor.next;
         }
 

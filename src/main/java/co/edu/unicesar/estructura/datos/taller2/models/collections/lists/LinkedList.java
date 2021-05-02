@@ -26,7 +26,7 @@ public abstract class LinkedList<T> implements List<T> {
     protected abstract void linkLast(T item);
 
     @Contract(mutates = "this")
-    protected abstract void linkAtMiddle(T item, Comparator<? super T> comparator);
+    protected abstract void linkAtMiddle(T item, Function<T, Boolean> function);
 
     @Override
     public void addSorting(T item, Comparator<? super T> comparator) {
@@ -35,15 +35,36 @@ public abstract class LinkedList<T> implements List<T> {
             return;
         }
 
+        Function<T, Boolean> biggerComparison = (n) -> comparator.compare(item, n) >= 0;
+
         if (comparator.compare(item, this.getFirst().item) <= 0) {
             linkFirst(item);
-        } else if (comparator.compare(item, this.getLast().item) >= 0) {
+        } else if (biggerComparison.apply(this.getLast().getItem())) {
             linkLast(item);
         } else {
-            linkAtMiddle(item, comparator);
+            linkAtMiddle(item, biggerComparison);
         }
         this.size++;
     }
+
+    public void addReverse(T item, Comparator<? super T> comparator) {
+        if (this.isEmpty()) {
+            add(item);
+            return;
+        }
+
+        Function<T, Boolean> lowerComparison = (n) -> comparator.compare(item, n) <= 0;
+
+        if (comparator.compare(item, this.getFirst().item) >= 0) {
+            linkFirst(item);
+        } else if (lowerComparison.apply(this.getLast().item)) {
+            linkLast(item);
+        } else {
+            linkAtMiddle(item, lowerComparison);
+        }
+        this.size++;
+    }
+
 
     public void forEach(Consumer<Node<T>> consumer) {
         Node<T> cursor = this.getFirst();

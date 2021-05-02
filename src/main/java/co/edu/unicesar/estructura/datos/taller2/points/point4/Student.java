@@ -5,10 +5,12 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Student extends Entity {
 
     private String name;
@@ -20,20 +22,5 @@ public class Student extends Entity {
         this.name = name;
         this.gradesList = new ArrayList<>();
         this.prom = prom;
-    }
-
-    @Override
-    public String toString() {
-        return (
-            "{" +
-            "name='" +
-            name +
-            '\'' +
-            ", gradesList=" +
-            gradesList +
-            ", prom=" +
-            prom +
-            '}'
-        );
     }
 }
