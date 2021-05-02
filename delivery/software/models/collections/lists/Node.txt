@@ -11,7 +11,7 @@ public abstract class Node<T> {
         this.item = item;
     }
 
-    public abstract Node<T> next();
+    public abstract Node<T> getNext();
 
     @Override
     public String toString() {

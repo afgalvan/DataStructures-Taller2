@@ -18,14 +18,12 @@ public class Point6 {
     public static void main(String[] args) {
         val list1 = new SimplyLinkedList<Integer>();
         val list2 = new SimplyLinkedList<ActionItem>();
-        Runnable askData1 = () -> askData1(list1);
-        Runnable askData2 = () -> askData2(list2);
 
         System.out.println("LLENADO DE DATOS LISTA 1.\n");
-        fillData(askData1);
+        fillData(() -> askData1(list1));
         System.out.println("\n-----------------------------");
         System.out.println("LLENADO DE DATOS LISTA 2.\n");
-        fillData(askData2);
+        fillData(() -> askData2(list2));
 
         System.out.println("\n\n\nLista 1 Original");
         System.out.println(list1);
@@ -74,13 +72,16 @@ public class Point6 {
                 if (node.getItem().getAction() == 'A') {
                     list1.add(node.getItem().getCode());
                 } else if (node.getItem().getAction() == 'R') {
-                    deleteNode(list1, node.getItem().getCode());
+                    deleteAllOccurrences(list1, node.getItem().getCode());
                 }
             }
         );
     }
 
-    public static void deleteNode(SimplyLinkedList<Integer> list1, int code) {
+    public static void deleteAllOccurrences(
+        SimplyLinkedList<Integer> list1,
+        int code
+    ) {
         SimplyLinkedList.SimplyNode<Integer> toDelete;
         do {
             toDelete = list1.getNodeOf(code).toSimply();

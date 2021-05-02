@@ -78,7 +78,10 @@ public class Point6 {
         );
     }
 
-    public static void deleteAllOccurrences(SimplyLinkedList<Integer> list1, int code) {
+    public static void deleteAllOccurrences(
+        SimplyLinkedList<Integer> list1,
+        int code
+    ) {
         SimplyLinkedList.SimplyNode<Integer> toDelete;
         do {
             toDelete = list1.getNodeOf(code).toSimply();
