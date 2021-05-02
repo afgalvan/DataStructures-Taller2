@@ -14,10 +14,8 @@ import co.edu.unicesar.estructura.datos.taller2.models.collections.Collections;
 import co.edu.unicesar.estructura.datos.taller2.models.collections.lists.DoublyLinkedList;
 import co.edu.unicesar.estructura.datos.taller2.models.collections.lists.LinkedList;
 import co.edu.unicesar.estructura.datos.taller2.models.collections.lists.SimplyLinkedList;
-import lombok.val;
-
-import java.util.Collection;
 import java.util.Scanner;
+import lombok.val;
 
 public class Point1 {
 
@@ -56,14 +54,19 @@ public class Point1 {
         Collections.addUniqueReverse(list, scanner.nextInt());
     }
 
-    public static void copyUniques(LinkedList<Integer> list1, LinkedList<Integer> list2) {
-        list2.forEach(node2 -> {
-            if (list1.contains(node2.getItem())) {
-                list2.remove(node2);
-            } else {
-                Collections.addUniqueReverse(list1, node2.getItem());
+    public static void copyUniques(
+        LinkedList<Integer> list1,
+        LinkedList<Integer> list2
+    ) {
+        list2.forEach(
+            node2 -> {
+                if (list1.contains(node2.getItem())) {
+                    list2.remove(node2);
+                } else {
+                    Collections.addUniqueReverse(list1, node2.getItem());
+                }
             }
-        });
+        );
     }
 
     public static void showResults(
