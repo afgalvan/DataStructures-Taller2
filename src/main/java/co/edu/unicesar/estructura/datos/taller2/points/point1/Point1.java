@@ -12,39 +12,74 @@ package co.edu.unicesar.estructura.datos.taller2.points.point1;
 
 import co.edu.unicesar.estructura.datos.taller2.models.collections.Collections;
 import co.edu.unicesar.estructura.datos.taller2.models.collections.lists.DoublyLinkedList;
+import co.edu.unicesar.estructura.datos.taller2.models.collections.lists.LinkedList;
 import co.edu.unicesar.estructura.datos.taller2.models.collections.lists.SimplyLinkedList;
 import lombok.val;
 
+import java.util.Collection;
+import java.util.Scanner;
+
 public class Point1 {
+
+    public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         val doublyList = new DoublyLinkedList<Integer>();
         val simplyList = new SimplyLinkedList<Integer>();
+        System.out.println("Llenar lista doblemente enlazada");
+        repeatFunction(() -> listFill(doublyList));
+        System.out.println("-----------------------------------");
+        System.out.println("Llenar lista simplemente enlazada");
+        repeatFunction(() -> listFill(simplyList));
 
-        Collections.addUniqueReverse(doublyList, 3);
-        Collections.addUniqueReverse(doublyList, 7);
-        Collections.addUniqueReverse(doublyList, 45);
-        Collections.addUniqueReverse(doublyList, 15);
-        Collections.addUniqueReverse(doublyList, 2);
-
-        Collections.addUniqueReverse(simplyList, 3);
-        Collections.addUniqueReverse(simplyList, 5);
-        Collections.addUniqueReverse(simplyList, 2);
-        Collections.addUniqueReverse(simplyList, 11);
-        Collections.addUniqueReverse(simplyList, 8);
-        Collections.addUniqueReverse(simplyList, 7);
-        Collections.addUniqueReverse(simplyList, 45);
-        Collections.addUniqueReverse(simplyList, 15);
-        Collections.addUniqueReverse(simplyList, 2);
-        Collections.addUniqueReverse(simplyList, 22);
         showResults(doublyList, simplyList);
     }
 
-    public static <T> void showResults(
-        DoublyLinkedList<T> doublyList,
-        SimplyLinkedList<T> simplyList
+    public static void repeatFunction(Runnable registerMethod) {
+        char keepAsking;
+        do {
+            registerMethod.run();
+
+            System.out.print("Desea realizar otro registro? [S/N]: ");
+            keepAsking = scanner.next().toLowerCase().charAt(0);
+            scanner.nextLine();
+        } while (keepAsking == 's');
+    }
+
+    public static void listFill(SimplyLinkedList<Integer> list) {
+        System.out.print("Ingrese un número: ");
+        list.add(scanner.nextInt());
+    }
+
+    public static void listFill(DoublyLinkedList<Integer> list) {
+        System.out.print("Ingrese un número: ");
+        Collections.addUniqueReverse(list, scanner.nextInt());
+    }
+
+    public static void copyUniques(LinkedList<Integer> list1, LinkedList<Integer> list2) {
+        list2.forEach(node2 -> {
+            if (list1.contains(node2.getItem())) {
+                list2.remove(node2);
+            } else {
+                Collections.addUniqueReverse(list1, node2.getItem());
+            }
+        });
+    }
+
+    public static void showResults(
+        LinkedList<Integer> doublyList,
+        LinkedList<Integer> simplyList
     ) {
-        System.out.println(simplyList);
+        System.out.println("\nRESULTADO.");
+        System.out.println("Lista doblemente enlazada original");
         System.out.println(doublyList);
+        System.out.println("Lista simplemente enlazada original");
+        System.out.println(simplyList);
+        copyUniques(doublyList, simplyList);
+        System.out.println("\n====================================\n");
+        System.out.println("Lista doblemente enlazada modificada");
+        System.out.println(doublyList);
+        System.out.println("Lista simplemente enlazada modificada");
+        System.out.println(simplyList);
     }
 }
