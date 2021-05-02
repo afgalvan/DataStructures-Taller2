@@ -20,10 +20,23 @@ REGISTRO ListaEnlazada
 FIN REGISTRO
 
 
-FUNCION pedirDatos(Nodo nodo)
+FUNCION pedirDatos(Nodo *nodo)
     ESCRIBIR "Ingrese un numero: "
     LEER(nodo^.dato)
 FIN pedirDatos
+
+
+FUNCION agregarNodo(ListaEnlazada lista, Nodo *nodo)
+    // Balancear nodo
+    nodo^.siguiente <- NULL
+    // Verificar que la lista no esté vacía
+    SI (lista.cabeza = NULL) ENTONCES
+        lista.cabeza <- nodo
+    SINO
+        lista.ultimo^.siguiente <- nodo
+    FIN_SI
+    lista.ultimo <- nodo
+FIN agregarNodo
 
 
 FUNCION llenarDatos(ListaEnlazada lista)
@@ -44,19 +57,6 @@ FUNCION llenarDatos(ListaEnlazada lista)
         LEER(continuar) 
     FIN_MIENTRAS
 FIN llenarDatos
-
-
-FUNCION agregarNodo(ListaEnlazada lista, Nodo nodo)
-    // Balancear nodo
-    nodo^.siguiente <- NULL
-    // Verificar que la lista no esté vacía
-    SI (lista.cabeza = NULL) ENTONCES
-        lista.cabeza <- nodo
-    SINO
-        lista.ultimo^.siguiente <- nodo
-    FIN_SI
-    lista.ultimo <- nodo
-FIN agregarNodo
 
 
 FUNCION pop(ListaEnlazada lista)
@@ -86,7 +86,7 @@ FUNCION detach(ListaEnlazada lista)
 FIN detach
 
 
-FUNCION borrarNodoMitad(ListaEnlazada lista, Nodo nodoBorrar)
+FUNCION borrarNodoMitad(ListaEnlazada lista, Nodo *nodoBorrar)
     Nodo *cursor
     cursor <- lista.cabeza^.siguiente
 
@@ -103,7 +103,7 @@ FUNCION borrarNodoMitad(ListaEnlazada lista, Nodo nodoBorrar)
 FIN borrarNodoMitad
 
 
-FUNCION borrarNodo(ListaEnlazada lista, Nodo nodoBorrar)
+FUNCION borrarNodo(ListaEnlazada lista, Nodo *nodoBorrar)
     SI (nodoBorrar = lista.cabeza) ENTONCES
         pop(lista)
     SINO

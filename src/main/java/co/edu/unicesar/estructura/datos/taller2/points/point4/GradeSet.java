@@ -11,11 +11,7 @@ import lombok.Setter;
 @Setter
 public class GradeSet extends Entity {
 
-    private final List<Double> gradesList = new ArrayList<>();
-
-    public GradeSet(String id) {
-        super(id);
-    }
+    private final List<Double> gradesList = new ArrayList<>(3);
 
     public void add(double grade) {
         gradesList.add(grade);

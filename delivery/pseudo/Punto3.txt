@@ -28,18 +28,17 @@ FIN pedirDatos
 
 
 // Append nodo O(1)
-FUNCION agregarNodo(ListaEnlazada lista, Nodo nombre)
+FUNCION agregarNodo(ListaEnlazada lista, Nodo *nombre)
     nombre^.anterior <- NULL
     nombre^.siguiente <- NULL
 
     SI (lista.cabeza = NULL) ENTONCES
         lista.cabeza <- nombre
-        lista.ultimo <- nombre
     SINO
         lista.ultimo^.siguiente <- nombre
         nombre^.anterior <- lista^.ultimo
-        lista.ultimo <- nombre
     FIN_SI
+    lista.ultimo <- nombre
 FIN agregarNodo
 
 
@@ -94,14 +93,14 @@ FUNCION moverUltimo(ListaEnlazada base, ListaEnlazada objetivo)
 FIN moverUltimo
 
 
-FUNCION moverNodo(Nodo nodoMover, ListaEnlazada base, ListaEnlazada objetivo)
+FUNCION moverNodo(Nodo *nodoMover, ListaEnlazada base, ListaEnlazada objetivo)
     nodoMover^.anterior^.siguiente <- nodoMover^.siguiente
     nodoMover^.siguiente^.anterior <- nodoMover^.siguiente
     agregarNodo(objetivo, nodoMover)
 FIN moverNodo
 
 
-FUNCION mover(Nodo nodoMover, ListaEnlazada base, ListaEnlazada objetivo)
+FUNCION mover(Nodo *nodoMover, ListaEnlazada base, ListaEnlazada objetivo)
     SI (nodoMover = base.cabeza) ENTONCES
         moverCabeza(base, objetivo)
     SINO

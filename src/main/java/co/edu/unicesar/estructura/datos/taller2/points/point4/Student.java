@@ -11,16 +11,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Student extends Entity {
+public class Student extends Person {
 
-    private String name;
     private List<Double> gradesList;
     private double prom;
-
-    public Student(String id, String name, double prom) {
-        super(id);
-        this.name = name;
-        this.gradesList = new ArrayList<>();
-        this.prom = prom;
-    }
 }

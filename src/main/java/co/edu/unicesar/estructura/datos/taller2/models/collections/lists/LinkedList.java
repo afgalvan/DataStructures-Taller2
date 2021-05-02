@@ -48,7 +48,7 @@ public abstract class LinkedList<T> implements List<T> {
         this.size++;
     }
 
-    public void addReverse(T item, Comparator<? super T> comparator) {
+    public void addReversing(T item, Comparator<? super T> comparator) {
         if (this.isEmpty()) {
             add(item);
             return;

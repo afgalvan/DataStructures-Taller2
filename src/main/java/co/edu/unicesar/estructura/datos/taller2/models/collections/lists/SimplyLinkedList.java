@@ -123,19 +123,15 @@ public class SimplyLinkedList<T> extends LinkedList<T> {
 
     @Contract(mutates = "this")
     public void differenceUpdate(SimplyLinkedList<T> anotherList) {
-        SimplyNode<T> cursorB = anotherList.first;
-
-        while (cursorB != null) {
-            SimplyNode<T> cursorA = this.first;
-            while (cursorA != null) {
-                SimplyNode<T> auxNext = cursorA.next;
-                if (cursorA.item == cursorB.item) {
-                    this.remove(cursorA);
+        // prettier-ignore-start
+        anotherList.forEach(
+            foreignNode -> this.forEach(localNode -> {
+                if (localNode.item == foreignNode.item) {
+                    this.remove(localNode);
                 }
-                cursorA = auxNext;
-            }
-            cursorB = cursorB.next;
-        }
+            })
+        );
+        // prettier-ignore-end
     }
 
     @Override

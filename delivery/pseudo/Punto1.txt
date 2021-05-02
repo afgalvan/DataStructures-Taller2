@@ -41,15 +41,6 @@ FUNCION llenarDatos(ListaEnlazada lista)
         SINO
             pedirDatos(nodo)
             // Agregar nodo a la lista
-            nodo^.anterior <- NULL
-            nodo^.siguiente <- NULL
-            // Verificar que la lista no esté vacía
-            SI (lista.cabeza = NULL) ENTONCES
-                lista.cabeza <- nodo
-                lista.ultimo <- nodo
-            SINO
-                insercionOrdenada(lista, nodo)
-            FIN_SI
             ESCRIBIR "Desea agregar otro nodo a la lista? [S/N]: "
             LEER(continuar) 
         FIN_SI

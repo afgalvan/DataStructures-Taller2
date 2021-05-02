@@ -29,7 +29,7 @@ FIN ListaEnlazada2
 
 
 // Append nodo O(1)
-FUNCION agregarNodo1(ListaEnlazada1 lista, Nodo1 nodo)
+FUNCION agregarNodo1(ListaEnlazada1 lista, Nodo1 *nodo)
     nodo^.anterior <- NULL
     nodo^.siguiente <- NULL
 
@@ -65,7 +65,7 @@ FIN llenarDatos1
 
 
 // Append nodo O(1)
-FUNCION agregarNodo2(ListaEnlazada2 lista, Nodo2 nodo)
+FUNCION agregarNodo2(ListaEnlazada2 lista, Nodo2 *nodo)
     nodo^.anterior <- NULL
     nodo^.siguiente <- NULL
 
@@ -153,7 +153,7 @@ FUNCION detach(ListaEnlazada1 lista1)
 FIN detach
 
 
-FUNCION borrarNodoMitad(ListaEnlazada1 lista1, Nodo1 nodoBorrar)
+FUNCION borrarNodoMitad(ListaEnlazada1 lista1, Nodo1 *nodoBorrar)
     Nodo1 *cursor
     cursor <- lista1.cabeza^.siguiente
 
@@ -169,7 +169,7 @@ FUNCION borrarNodoMitad(ListaEnlazada1 lista1, Nodo1 nodoBorrar)
 FIN borrarNodoMitad
 
 
-FUNCION borrarNodo(ListaEnlazada1 lista1, Nodo1 nodoBorrar)
+FUNCION borrarNodo(ListaEnlazada1 lista1, Nodo1 *nodoBorrar)
     SI (nodoBorrar = lista1.cabeza) ENTONCES
         pop(lista1)
     SINO

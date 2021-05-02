@@ -4,12 +4,138 @@
 * (a esta actividad se le denomina CRUZAR las listas).
 */
 
-DEFINIR Nodo
-    entero dato
-    Nodo *siguiente
-FIN Nodo
+DEFINIR Persona
+    char[40] id
+    char[40] nombre
 
-REGISTRO ListaEnlazada
-    Nodo *cabeza
-    Nodo *ultimo
+    Persona *siguiente
+FIN Persona
+
+DEFINIR Notas
+    char[40] id
+    double[3] notas
+
+    Notas *siguiente
+FIN Notas
+
+DEFINIR Estudiante
+    char[40] id
+    char[40] nombre
+    double[3] notas
+    double promedio
+
+    Estudiante *siguiente
+FIN Estudiante
+
+REGISTRO ListaPersonas
+    Persona *cabeza
+    Persona *ultimo
 FIN REGISTRO
+
+REGISTRO ListaNotas
+    Notas *cabeza
+    Notas *ultimo
+FIN REGISTRO
+
+REGISTRO ListaEstudiantes
+    Estudiante *cabeza
+    Estudiante *ultimo
+FIN REGISTRO
+
+
+FUNCION agregarPersona(ListaPersonas lista, Persona *persona)
+    persona^.anterior <- NULL
+    persona^.siguiente <- NULL
+
+    SI (lista.cabeza = NULL) ENTONCES
+        lista.cabeza <- persona
+    SINO
+        lista.ultimo^.siguiente <- persona
+        persona^.anterior <- lista^.ultimo
+    FIN_SI
+    lista.ultimo <- persona
+FIN agregarPersona
+
+
+FUNCION agregarNotas(ListaNotas lista, Notas *notas)
+    notas^.anterior <- NULL
+    notas^.siguiente <- NULL
+
+    SI (lista.cabeza = NULL) ENTONCES
+        lista.cabeza <- notas
+    SINO
+        lista.ultimo^.siguiente <- notas
+        notas^.anterior <- lista^.ultimo
+    FIN_SI
+    lista.ultimo <- notas
+FIN agregarNotas
+
+
+FUNCION agregarEstudiante(ListaEstudiantes lista, Estudiante *estudiante)
+    estudiante^.anterior <- NULL
+    estudiante^.siguiente <- NULL
+
+    SI (lista.cabeza = NULL) ENTONCES
+        lista.cabeza <- estudiante
+    SINO
+        lista.ultimo^.siguiente <- estudiante
+        estudiante^.anterior <- lista^.ultimo
+    FIN_SI
+    lista.ultimo <- estudiante
+FIN agregarEstudiante
+
+
+FUNCION calcularPromedio(Estudiante estudiante)
+    double promedio <- estudiante^.notas[0] * 0.3
+    promedio <- promedio + estudiante^.notas[1] * 0.3
+    promedio <- promedio + estudiante^.notas[2] * 0.4
+
+    RETORNAR promedio
+FIN calcularPromedio
+
+
+FUNCION generarEstudiante(Persona *persona, Notas *notas)
+    Estudiante *estudiante
+    NEW(estudiante)
+
+    estudiante^.id = persona^.id
+    estudiante^.nombre = persona^.nombre
+    estudiante^.notas = notas^.notas
+    estudiante^.promedio <- calcularPromedio(estudiante)
+
+    RETORNAR estudiante
+FIN generarEstudiante
+
+FUNCION cruzarListas(ListaPersonas listaPersonas, ListaNotas listaNotas)
+    ListaEstudiantes listaEstudiantes
+    Persona *cursorP
+    Notas *cursorN
+
+    cursorP <- listaPersonas.cabeza
+
+    MIENTRAS (cursorP <> NULL) HACER
+        cursorN <- listaNotas.cabeza
+        MIENTRAS(cursorN <> NULL) HACER
+            SI (cursorN^.id = cursorP^.id) ENTONCES
+                Estudiante *estudiante <- generarEstudiante(cursorP, cursorN)
+                agregarEstudiante(listaEstudiantes, estudiante)
+            FIN_SI
+            cursorN <- cursorN.siguiente
+        FIN_MIENTRAS
+        cursorP <- cursorP^.siguiente
+    FIN_MIENTRAS
+ 
+    RETORNAR listaEstudiantes
+FIN cruzarListas
+
+PROGRAMA_PRINCIPAL
+    ListaPersonas listaPersonas
+    ListaNotas listaNotas
+
+    registrarPersona(listaPersonas)
+    ESCRIBIR "---------------------"
+    registrarNotas(listaNotas)
+
+    ListaEstudiantes listaEstudiantes <- cruzarListas(listaPersonas, listaNotas)
+    mostrarEstudiantes(listaEstudiantes)
+FIN PROGRAMA_PRINCIPAL

@@ -81,8 +81,7 @@ public class Point4 {
     }
 
     public static double computeProm(Student student) {
-        var prom = 0.0;
-        prom += student.getGradesList().get(0) * 0.3;
+        double prom = student.getGradesList().get(0) * 0.3;
         prom += student.getGradesList().get(1) * 0.3;
         prom += student.getGradesList().get(2) * 0.4;
         return prom;
@@ -106,7 +105,8 @@ public class Point4 {
         // prettier-ignore-start
         personsList.forEach(
             personNode -> groupGrades.forEach(gradeNode -> {
-                if (personNode.getItem().getId().equals(gradeNode.getItem().getId())) {
+                String personId = personNode.getItem().getId();
+                if (personId.equals(gradeNode.getItem().getId())) {
                     studentsList.add(generateStudent(personNode.getItem(), gradeNode.getItem()));
                 }
             })

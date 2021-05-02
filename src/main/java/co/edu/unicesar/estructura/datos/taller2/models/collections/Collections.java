@@ -1,7 +1,6 @@
 package co.edu.unicesar.estructura.datos.taller2.models.collections;
 
 import co.edu.unicesar.estructura.datos.taller2.models.collections.lists.LinkedList;
-import java.util.Collection;
 import java.util.Comparator;
 
 public final class Collections {
@@ -24,7 +23,7 @@ public final class Collections {
 
     public static void addUniqueReverse(LinkedList<Integer> list, int data) {
         if (!list.contains(data)) {
-            list.addReverse(data, Integer::compareTo);
+            list.addReversing(data, Integer::compareTo);
         }
     }
 }

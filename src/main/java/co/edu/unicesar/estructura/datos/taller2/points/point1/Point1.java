@@ -21,6 +21,12 @@ public class Point1 {
         val doublyList = new DoublyLinkedList<Integer>();
         val simplyList = new SimplyLinkedList<Integer>();
 
+        Collections.addUniqueReverse(doublyList, 3);
+        Collections.addUniqueReverse(doublyList, 7);
+        Collections.addUniqueReverse(doublyList, 45);
+        Collections.addUniqueReverse(doublyList, 15);
+        Collections.addUniqueReverse(doublyList, 2);
+
         Collections.addUniqueReverse(simplyList, 3);
         Collections.addUniqueReverse(simplyList, 5);
         Collections.addUniqueReverse(simplyList, 2);
@@ -39,5 +45,6 @@ public class Point1 {
         SimplyLinkedList<T> simplyList
     ) {
         System.out.println(simplyList);
+        System.out.println(doublyList);
     }
 }

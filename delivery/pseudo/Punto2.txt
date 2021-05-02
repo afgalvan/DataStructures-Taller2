@@ -20,7 +20,7 @@ REGISTRO ListaEnlazada
 FIN REGISTRO
 
 
-FUNCION insercionOrdenada(ListaEnlazada lista, Nodo nodo)
+FUNCION insercionOrdenada(ListaEnlazada lista, Nodo *nodo)
     SI (nodo^.dato < lista.cabeza^.dato) ENTONCES
         nodo^.siguiente <- lista.cabeza
         lista.cabeza^.antes <- nodo
@@ -44,7 +44,7 @@ FUNCION insercionOrdenada(ListaEnlazada lista, Nodo nodo)
 FIN insercionOrdenada
 
 
-FUNCION insercionUnica(ListaEnlazada lista, Nodo nodo)
+FUNCION insercionUnica(ListaEnlazada lista, Nodo *nodo)
     Nodo *cursor <- lista.cabeza
     repetido <- false
 
@@ -59,7 +59,7 @@ FUNCION insercionUnica(ListaEnlazada lista, Nodo nodo)
 FIN insercionUnica
 
 
-FUNCION pedirDatos(Nodo nodo)
+FUNCION pedirDatos(Nodo *nodo)
     ESCRIBIR "Ingrese un numero: "
     LEER(nodo^.dato)
 FIN pedirDatos
@@ -99,14 +99,14 @@ FUNCION moverUltimo(ListaEnlazada base, ListaEnlazada objetivo)
 FIN moverUltimo
 
 
-FUNCION moverNodo(Nodo nodoMover, ListaEnlazada base, ListaEnlazada objetivo)
+FUNCION moverNodo(Nodo *nodoMover, ListaEnlazada base, ListaEnlazada objetivo)
     nodoMover^.anterior^.siguiente <- nodoMover^.siguiente
     nodoMover^.siguiente^.anterior <- nodoMover^.anterior
     insercionUnica(objetivo, nodoMover)
 FIN moverNodo
 
 
-FUNCION mover(Nodo nodoMover, ListaEnlazada base, ListaEnlazada objetivo)
+FUNCION mover(Nodo *nodoMover, ListaEnlazada base, ListaEnlazada objetivo)
     SI (nodoMover = base.cabeza) ENTONCES
         moverCabeza(base, objetivo)
     SINO

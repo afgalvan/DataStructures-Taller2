@@ -10,9 +10,4 @@ import lombok.Setter;
 public class Person extends Entity {
 
     private String name;
-
-    public Person(String id, String name) {
-        super(id);
-        this.name = name;
-    }
 }
