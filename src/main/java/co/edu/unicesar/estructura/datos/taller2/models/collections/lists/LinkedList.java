@@ -38,7 +38,7 @@ public abstract class LinkedList<T> implements List<T> {
         Function<T, Boolean> biggerComparison = n ->
             comparator.compare(item, n) >= 0;
 
-        if (comparator.compare(item, this.getFirst().item) <= 0) {
+        if (comparator.compare(item, this.getFirst().getItem()) <= 0) {
             linkFirst(item);
         } else if (biggerComparison.apply(this.getLast().getItem())) {
             linkLast(item);

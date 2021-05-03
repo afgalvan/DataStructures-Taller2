@@ -34,11 +34,10 @@ FUNCION agregarNodo1(ListaEnlazada1 lista, Nodo1 *nodo)
 
     SI (lista.cabeza = NULL) ENTONCES
         lista.cabeza <- nodo
-        lista.ultimo <- nodo
     SINO
         lista.ultimo^.siguiente <- nodo
-        lista.ultimo <- nodo
     FIN_SI
+    lista.ultimo <- nodo
 FIN agregarNodo1
 
 
@@ -193,13 +192,18 @@ FIN borrar
 
 
 FUNCION ejecutarAccion(ListaEnlazada1 lista1, ListaEnlazada2 lista2)
-    // 2 -> 5 -> 6 -> NULL
-    // 1 -> 3 -> 9 -> 6 -> NULL
-    //           A    R
     Nodo2 *cursor2 <- lista2^.cabeza
     MIENTRAS (cursor2 <> NULL) HACER
         SI (cursor2^.accion = 'A') ENTONCES
-            agregarNodo1(lista1, cursor2^.codigo)
+            Nodo1 *nuevoNodo
+            NEW(nuevoNodo)
+            
+            SI (nuevoNodo = NULL)
+                ESCRIBIR "Not memory"
+            SINO
+                nuevoNodo^.codigo <- cursor2^.codigo
+                agregarNodo1(lista1,nuevoNodo)
+            FIN_SI
         SINO
             SI (cursor2^.accion = 'R') ENTONCES
                 borrar(lista1, cursor2^.codigo)
@@ -207,10 +211,6 @@ FUNCION ejecutarAccion(ListaEnlazada1 lista1, ListaEnlazada2 lista2)
         FIN_SI
         cursor2 <- cursor2^.siguiente
     FIN_MIENTRAS
-
-    // 2 -> 5 ->  -> NULL
-    // 1 -> 3 -> 9 -> 6 -> NULL
-    //           A    R
 FIN ejecutarAccion
 
 
