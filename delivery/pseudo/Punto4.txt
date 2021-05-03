@@ -51,23 +51,33 @@ FUNCION agregarPersona(ListaPersonas lista, Persona *persona)
         lista.cabeza <- persona
     SINO
         lista.ultimo^.siguiente <- persona
-        persona^.anterior <- lista^.ultimo
     FIN_SI
     lista.ultimo <- persona
 FIN agregarPersona
 
 
-FUNCION pedirDatosPersona(Persona *persona)
+
+FUNCION pedirDatosPersona(ListaPersonas lista, Persona *persona)
     repetido <- false
 
     ESCRIBIR "REGISTRAR PERSONA"
     ESCRIBIR "Ingrese el id: "
     LEER(persona^.id)
-    Persona *persona <- 
-    MIENTRAS () HACER
 
+    Persona *cursor <- lista.cabeza
+    MIENTRAS (cursor <> NULL) AND (repetido = false) HACER
+        SI (persona^.id = cursor^.id) ENTONCES
+            ESCRIBIR "Persona ya registrada"
+            repetido <- true
+        FIN_SI
+        persona <- persona^.siguiente
     FIN_MIENTRAS
 
+    SI (repetido = false) ENTONCES
+        ESCRIBIR "Ingrese el nombre: "
+        LEER(persona^.nombre)
+        agregarPersona(lista, persona)
+    FIN_SI
 FIN pedirDatosPersona
 
 
@@ -82,12 +92,24 @@ FUNCION registrarPersona(ListaPersonas lista)
             ESCRIBIR "No hay memoria disponible en el sistema"
         SINO
             pedirDatosPersona(persona)
-            agregarPersona(lista, persona)
         FIN_SI
         ESCRIBIR "Desea agregar otra persona a la lista? [S/N]: "
         LEER(continuar) 
     FIN_MIENTRAS
 FIN registrarPersona
+
+
+FUNCION pedirDatosNotas(Notas *notas)
+    ESCRIBIR "REGISTRAR NOTAS"
+    ESCRIBIR "Ingrese el id: "
+    LEER(notas^.id)
+
+    ESCRIBIR "Notas de los cortes."
+    PARA i <- 1 hasta 3 con paso 1 HACER
+        ESCRIBIR "Corte ", i, ": "
+        LEER(notas^.notas[i])
+    FIN_PARA
+FIN pedirDatosNotas
 
 
 FUNCION agregarNotas(ListaNotas lista, Notas *notas)
@@ -98,7 +120,6 @@ FUNCION agregarNotas(ListaNotas lista, Notas *notas)
         lista.cabeza <- notas
     SINO
         lista.ultimo^.siguiente <- notas
-        notas^.anterior <- lista^.ultimo
     FIN_SI
     lista.ultimo <- notas
 FIN agregarNotas
@@ -131,7 +152,6 @@ FUNCION agregarEstudiante(ListaEstudiantes lista, Estudiante *estudiante)
         lista.cabeza <- estudiante
     SINO
         lista.ultimo^.siguiente <- estudiante
-        estudiante^.anterior <- lista^.ultimo
     FIN_SI
     lista.ultimo <- estudiante
 FIN agregarEstudiante
@@ -198,8 +218,6 @@ FUNCION mostrarEstudiantes(ListaEnlazada lista)
         mostrarEstudiante(cursor)
         cursor <- cursor^.siguiente
     FIN_MIENTRAS
-
-    ESCRIBIR "NULL"
 FIN mostrarEstudiantes
 
 

@@ -9,6 +9,7 @@ package co.edu.unicesar.estructura.datos.taller2.points.point4;
 import co.edu.unicesar.estructura.datos.taller2.models.collections.lists.SimplyLinkedList;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
+
 import lombok.val;
 import lombok.var;
 
@@ -38,12 +39,13 @@ public class Point4 {
         System.out.println("\nREGISTRAR PERSONA");
         System.out.print("Ingrese el id: ");
         person.setId(scanner.nextLine());
-        personsList.forEach(
+        personsList.map(
             personNode -> {
                 if (personNode.getItem().getId().equals(person.getId())) {
                     System.out.println("\nPersona ya registrada");
                     repeated.set(true);
                 }
+                return repeated.get();
             }
         );
 
@@ -104,11 +106,13 @@ public class Point4 {
 
         // prettier-ignore-start
         personsList.forEach(
-            personNode -> groupGrades.forEach(gradeNode -> {
+                personNode -> groupGrades.map(gradeNode -> {
                 String personId = personNode.getItem().getId();
                 if (personId.equals(gradeNode.getItem().getId())) {
                     studentsList.add(generateStudent(personNode.getItem(), gradeNode.getItem()));
+                    return true;
                 }
+                return false;
             })
         );
         // prettier-ignore-end

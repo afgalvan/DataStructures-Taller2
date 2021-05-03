@@ -76,14 +76,15 @@ public abstract class LinkedList<T> implements List<T> {
         }
     }
 
-    @Contract(mutates = "this")
-    public void map(Function<T, Boolean> function) {
-        this.forEach(
-                n -> {
-                    if (function.apply(n.item)) {
-                        this.remove(n);
-                    }
-                }
-            );
+    public void map(Function<Node<T>, Boolean> function) {
+        Node<T> cursor = this.getFirst();
+
+        while (cursor != null) {
+            Node<T> next = cursor.getNext();
+            if (function.apply(cursor)) {
+                return;
+            }
+            cursor = next;
+        }
     }
 }
