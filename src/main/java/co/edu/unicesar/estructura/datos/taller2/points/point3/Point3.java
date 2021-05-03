@@ -82,9 +82,13 @@ public class Point3 {
                 if (confirm == 's') {
                     target.add(toMove.getItem());
                     base.remove(toMove);
-                    System.out.printf("%s enviado a la papelera\n", name);
+                    if (action.equals("borrar")) {
+                        System.out.printf("%s enviado a la papelera\n", name);
+                    } else {
+                        System.out.printf("%s recuperado de la papelera\n", name);
+                    }
                 } else {
-                    System.out.printf("Operación de % cancelada\n", action);
+                    System.out.printf("Operación de %s cancelada\n", action);
                 }
             }
 

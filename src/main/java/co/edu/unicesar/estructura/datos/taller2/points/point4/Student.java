@@ -1,6 +1,5 @@
 package co.edu.unicesar.estructura.datos.taller2.points.point4;
 
-import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

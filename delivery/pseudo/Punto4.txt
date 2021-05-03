@@ -85,6 +85,31 @@ FUNCION agregarEstudiante(ListaEstudiantes lista, Estudiante *estudiante)
 FIN agregarEstudiante
 
 
+FUNCION registrarPersona(ListaPersonas lista)
+    ESCRIBIR "LLENADO DE DATOS"
+    continuar <- "s"
+
+    MIENTRAS (continuar = "s") HACER
+        // Crear nuevo nodo
+        Nodo *nodo
+        NEW(nodo)
+        SI (nodo = NULL) ENTONCES
+            ESCRIBIR "No hay memoria disponible en el sistema"
+        SINO
+            pedirDatos(nodo)
+            // Agregar nodo a la lista
+        FIN_SI
+        ESCRIBIR "Desea agregar otro nodo a la lista? [S/N]: "
+        LEER(continuar) 
+    FIN_MIENTRAS
+FIN registrarPersona
+
+
+FUNCION registrarNotas(ListaNotas lista)
+
+FIN registrarNotas
+
+
 FUNCION calcularPromedio(Estudiante estudiante)
     double promedio <- estudiante^.notas[0] * 0.3
     promedio <- promedio + estudiante^.notas[1] * 0.3

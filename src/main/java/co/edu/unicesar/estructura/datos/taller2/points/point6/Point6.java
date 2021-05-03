@@ -84,7 +84,7 @@ public class Point6 {
     ) {
         SimplyLinkedList.SimplyNode<Integer> toDelete;
         do {
-            toDelete = list1.getNodeOf(code).toSimply();
+            toDelete = (SimplyLinkedList.SimplyNode<Integer>) list1.getNodeOf(code);
             if (toDelete != null) {
                 list1.remove(toDelete);
             }

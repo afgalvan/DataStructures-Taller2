@@ -31,8 +31,8 @@ FUNCION insercionOrdenada(ListaEnlazada lista, Nodo *nodo)
             nodo^.anterior <- lista.ultimo
             lista.ultimo <- nodo
         SINO
-            cursor <- lista.cabeza
-            MIENTRAS (nodo^.dato >= cursor^.dato) HACER
+            Nodo *cursor <- lista.cabeza
+            MIENTRAS (cursor^.siguiente != NULL) AND (nodo^.dato >= cursor^.dato) HACER
                 cursor <- cursor^.siguiente
             FIN_MIENTRAS
             nodo^.anterior <- cursor^.anterior
@@ -88,6 +88,7 @@ FIN llenarDatos
 FUNCION moverCabeza(ListaEnlazada base, ListaEnlazada objetivo)
     Nodo *nodoMover <- base.cabeza
     base.cabeza <- base.cabeza^.siguiente
+    base.cabeza^.anterior <- NULL
     insercionUnica(objetivo, nodoMover)
 FIN moverCabeza
 
@@ -95,6 +96,7 @@ FIN moverCabeza
 FUNCION moverUltimo(ListaEnlazada base, ListaEnlazada objetivo)
     Nodo *nodoMover <- base.ultimo
     base.ultimo <- base.ultimo^.anterior
+    base.ultimo^.siguiente <- NULL
     insercionUnica(objetivo, nodoMover)
 FIN moverUltimo
 
@@ -127,7 +129,7 @@ FUNCION moverDatosPares(ListaEnlazada lista, ListaEnlazada objetivo)
         SI (cursor^.dato MOD 2 = 0) ENTONCES
             mover(cursor, lista, objetivo)
         FIN_SI
-        cursor = siguienteAux
+        cursor <- siguienteAux
     FIN_MIENTRAS
 FIN moverDatosPares
 
@@ -151,7 +153,7 @@ PROGRAMA_PRINCIPAL
 
     ESCRIBIR  "LLENADO DE DATOS LISTA 1"
     llenarDatos(listaOriginal)
-    
+
     ESCRIBIR  "-------------------------"
     ESCRIBIR  "Lista original"
     mostrarLista(listaOriginal)

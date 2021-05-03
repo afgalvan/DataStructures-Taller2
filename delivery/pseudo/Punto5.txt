@@ -60,27 +60,26 @@ FIN llenarDatos
 
 
 FUNCION pop(ListaEnlazada lista)
-    nodoBorrar <- lista.cabeza
+    Nodo *nodoBorrar <- lista.cabeza
     lista.cabeza <- lista.cabeza^.siguiente
     DELETE(nodoBorrar)
 FIN pop
 
 
 FUNCION detach(ListaEnlazada lista)
-    Nodo *cursor
+    Nodo *cursor <- lista.cabeza
 
     SI (lista.cabeza <> NULL ) ENTONCES 
-        cursor <- lista.cabeza
 
-        MIENTRAS(cursor^.siguiente^.siguiente <> null) HACER
+        MIENTRAS(cursor^.siguiente^.siguiente <> NULL) HACER
             cursor <- cursor^.siguiente
         FIN_MIENTRAS
 
         Nodo *nodoBorrar
         nodoBorrar <- lista.ultimo
         lista.ultimo <- cursor
-        lista.ultimo^.siguiente <- null
-        nodoBorrar^.siguiente <- null
+        lista.ultimo^.siguiente <- NULL
+        nodoBorrar^.siguiente <- NULL
         DELETE(nodoBorrar)
     FIN_SI
 FIN detach
@@ -88,7 +87,7 @@ FIN detach
 
 FUNCION borrarNodoMitad(ListaEnlazada lista, Nodo *nodoBorrar)
     Nodo *cursor
-    cursor <- lista.cabeza^.siguiente
+    cursor <- lista.cabeza
 
     MIENTRAS (cursor^.siguiente^.siguiente <> NULL) AND (cursor^.siguiente <> nodoBorrar) HACER
         cursor <- cursor^.siguiente

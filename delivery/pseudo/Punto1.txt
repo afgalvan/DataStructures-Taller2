@@ -8,17 +8,30 @@
 * NO PUDIERON SER INSERTADOS en L1 deben ser BORRADOS de L2.
 */
 
-DEFINIR Nodo
+DEFINIR Nodo1
     entero dato
 
-    Nodo *siguiente
-    Nodo *anterior
+    Nodo1 *anterior
+FIN Nodo1
+
+
+REGISTRO ListaEnlazada1
+    Nodo1 *cabeza
+    Nodo1 *ultimo
+FIN REGISTRO
+
+
+DEFINIR Nodo2
+    entero dato
+
+    Nodo2 *siguiente
+    Nodo2 *anterior
 FIN Nodo
 
 
-REGISTRO ListaEnlazada
-    Nodo *cabeza
-    Nodo *ultimo
+REGISTRO ListaEnlazada2
+    Nodo2 *cabeza
+    Nodo2 *ultimo
 FIN REGISTRO
 
 
@@ -41,11 +54,12 @@ FUNCION llenarDatos(ListaEnlazada lista)
         SINO
             pedirDatos(nodo)
             // Agregar nodo a la lista
-            ESCRIBIR "Desea agregar otro nodo a la lista? [S/N]: "
-            LEER(continuar) 
         FIN_SI
+        ESCRIBIR "Desea agregar otro nodo a la lista? [S/N]: "
+        LEER(continuar) 
     FIN_MIENTRAS
 FIN llenarDatos
+
 
 PROGRAMA_PRINCIPAL
     ListaEnlazada lista
