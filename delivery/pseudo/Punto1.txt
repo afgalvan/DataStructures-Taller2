@@ -196,7 +196,7 @@ FUNCION copiarUnicos(ListaEnlazada1 lista1, ListaEnlazada2 lista2)
                 ESCRIBIR "Not memory"
             SINO
                 nuevoNodo^dato <- cursor^.dato
-                insertarDescendentemente(lista1, nuevoNodo)
+                agregarUnico(lista1, nuevoNodo)
             FIN_SI
         FIN_SI
     FIN_MIENTRAS 
@@ -237,7 +237,7 @@ FUNCION mostrarResultados(ListaEnlazada1 lista1, ListaEnlazada2 lista2)
     ESCRIBIR "Lista simplemente enlazada original"
     mostrarLista2(lista2)
 
-    agregarUnicos(lista1, lista2)
+    copiarUnicos(lista1, lista2)
     
     ESCRIBIR "===================================="
 
