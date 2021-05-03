@@ -46,18 +46,24 @@ FUNCION insercionOrdenada(ListaEnlazada lista, Nodo *nodo)
 FIN insercionOrdenada
 
 
-FUNCION insercionUnica(ListaEnlazada lista, Nodo *nodo)
-    Nodo *cursor <- lista.cabeza
+FUNCION contiene(ListaEnlazada lista, entero dato)
+    Nodo1 *cursor <- lista.cabeza
     repetido <- false
 
     MIENTRAS (cursor^.siguiente <> NULL) AND (repetido = false) ENTONCES
-        SI (nodo^.dato = cursor^.dato) ENTONCES
+        SI (dato = cursor^.dato) ENTONCES
             repetido <- true
-            DELETE(nodo)
-        SINO
-            insercionOrdenada(lista, nodo)
         FIN_SI
     FIN_MIENTRAS
+
+    RETORNAR repetido
+FIN contiene
+
+
+FUNCION insercionUnica(ListaEnlazada lista, Nodo *nodo)
+    SI (contiene(lista, nodo^.dato) = false) ENTONCES
+        insercionOrdenada(lista, nodo)
+    FIN_SI
 FIN insercionUnica
 
 

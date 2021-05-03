@@ -4,14 +4,14 @@
 * de  ENTEROS sin ningún orden en particular, como se ilustra en la Figura-1.
 * El proceso que se requiere es insertarlos datos de la lista L2 en la lista L1, de tal
 * manera que la lista L1 siga estando sin valores duplicados y ordenada "Descendentemente".
-* Los nodos que contenganlos valores de L2 que YA EXISTAN en  la  lista L1 y por lo tanto
+* Los nodos que contengan los valores de L2 que YA EXISTAN en  la  lista L1 y por lo tanto
 * NO PUDIERON SER INSERTADOS en L1 deben ser BORRADOS de L2.
 */
 
 DEFINIR Nodo1
     entero dato
 
-    Nodo1 *anterior
+    Nodo1 *siguiente
     Nodo1 *anterior
 FIN Nodo1
 
@@ -41,18 +41,51 @@ FUNCION pedirDatos1(Nodo1 nodo)
 FIN pedirDatos
 
 
-FUNCION agregarNodo1(ListaEnlazada1 lista, Nodo *nodo)
-    nodo^.anterior <- NULL
-    nodo^.siguiente <- NULL
-
-    SI (lista.cabeza = NULL) ENTONCES
+FUNCION insertarDescendentemente(ListaEnlazada1 lista1, Nodo1 *nodo)
+    SI (nodo^.dato > lista.cabeza^.dato) ENTONCES
+        nodo^.siguiente <- lista.cabeza
+        lista.cabeza^.antes <- nodo
         lista.cabeza <- nodo
     SINO
-        lista.ultimo^.siguiente <- nodo
-        nodo^.anterior <- lista^.ultimo
+        SI (nodo^.dato < lista.ultimo^.dato) ENTONCES
+            lista.ultimo^.siguiente <- nodo
+            nodo^.anterior <- lista.ultimo
+            lista.ultimo <- nodo
+        SINO
+            Nodo *cursor <- lista.cabeza
+
+            MIENTRAS (cursor^.siguiente != NULL) AND (nodo^.dato <= cursor^.dato) HACER
+                cursor <- cursor^.siguiente
+            FIN_MIENTRAS
+            
+            nodo^.anterior <- cursor^.anterior
+            nodo^.anterior^.siguiente <- nodo
+            nodo^.siguiente <- cursor
+            cursor^.anterior <- nodo
+        FIN_SI
     FIN_SI
-    lista.ultimo <- nodo
-FIN agregarNodo1
+FIN insertarDescendentemente
+
+
+FUNCION contiene(ListaEnlazada1 lista, entero dato)
+    Nodo1 *cursor <- lista.cabeza
+    repetido <- false
+
+    MIENTRAS (cursor^.siguiente <> NULL) AND (repetido = false) ENTONCES
+        SI (dato = cursor^.dato) ENTONCES
+            repetido <- true
+        FIN_SI
+    FIN_MIENTRAS
+
+    RETORNAR repetido
+FIN contiene
+
+
+FUNCION agregarUnico(ListaEnlazada1 lista1, Nodo1 *nodo)
+    SI (contiene(lista1, nodo^.dato) = false) ENTONCES
+        insertarDescendentemente(lista1, nodo)
+    FIN_SI
+FIN agregarUnico
 
 
 FUNCION llenarDatos1(ListaEnlazada1 lista)
@@ -67,7 +100,7 @@ FUNCION llenarDatos1(ListaEnlazada1 lista)
             ESCRIBIR "No hay memoria disponible en el sistema"
         SINO
             pedirDatos1(nodo)
-            agregarNodo1(ListaEnlazada1, nodo)
+            agregarUnico(ListaEnlazada1, nodo)
         FIN_SI
         ESCRIBIR "Desea agregar otro nodo a la lista? [S/N]: "
         LEER(continuar) 
@@ -150,47 +183,7 @@ FUNCION borrar(ListaEnlazada2 lista, Nodo2 *nodoBorrar)
 FIN borrar
 
 
-FUNCION insertarDescendentemente(ListaEnlazada1 lista1, Nodo1 *nodo)
-    SI (nodo^.dato > lista.cabeza^.dato) ENTONCES
-        nodo^.siguiente <- lista.cabeza
-        lista.cabeza^.antes <- nodo
-        lista.cabeza <- nodo
-    SINO
-        SI (nodo^.dato < lista.ultimo^.dato) ENTONCES
-            lista.ultimo^.siguiente <- nodo
-            nodo^.anterior <- lista.ultimo
-            lista.ultimo <- nodo
-        SINO
-            Nodo *cursor <- lista.cabeza
-
-            MIENTRAS (cursor^.siguiente != NULL) AND (nodo^.dato <= cursor^.dato) HACER
-                cursor <- cursor^.siguiente
-            FIN_MIENTRAS
-            
-            nodo^.anterior <- cursor^.anterior
-            nodo^.anterior^.siguiente <- nodo
-            nodo^.siguiente <- cursor
-            cursor^.anterior <- nodo
-        FIN_SI
-    FIN_SI
-FIN insertarDescendentemente
-
-
-FUNCION contiene(ListaEnlazada1 lista, entero dato)
-    Nodo2 *cursor <- lista.cabeza
-    repetido <- false
-
-    MIENTRAS (cursor^.siguiente <> NULL) AND (repetido = false) ENTONCES
-        SI (dato = cursor^.dato) ENTONCES
-            repetido <- true
-        FIN_SI
-    FIN_MIENTRAS
-
-    RETORNAR repetido
-FIN contiene
-
-
-FUNCION agregarUnicos(ListaEnlazada1 lista1, ListaEnlazada2 lista2)
+FUNCION copiarUnicos(ListaEnlazada1 lista1, ListaEnlazada2 lista2)
     Nodo2 *cursor <- lista2.cabeza
     
     MIENTRAS (cursor <> NULL) HACER
@@ -207,7 +200,7 @@ FUNCION agregarUnicos(ListaEnlazada1 lista1, ListaEnlazada2 lista2)
             FIN_SI
         FIN_SI
     FIN_MIENTRAS 
-FIN agregarUnicos
+FIN copiarUnicos
 
 
 FUNCION mostrarLista1(ListaEnlazada1 lista)
