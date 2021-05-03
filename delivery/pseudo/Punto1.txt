@@ -12,6 +12,7 @@ DEFINIR Nodo1
     entero dato
 
     Nodo1 *anterior
+    Nodo1 *anterior
 FIN Nodo1
 
 
@@ -25,7 +26,6 @@ DEFINIR Nodo2
     entero dato
 
     Nodo2 *siguiente
-    Nodo2 *anterior
 FIN Nodo
 
 
@@ -35,13 +35,27 @@ REGISTRO ListaEnlazada2
 FIN REGISTRO
 
 
-FUNCION pedirDatos(Nodo nodo)
+FUNCION pedirDatos1(Nodo1 nodo)
     ESCRIBIR "Introduzca un numero: "
     LEER(nodo^.dato)
 FIN pedirDatos
 
 
-FUNCION llenarDatos(ListaEnlazada lista)
+FUNCION agregarNodo1(ListaEnlazada1 lista, Nodo *nodo)
+    nodo^.anterior <- NULL
+    nodo^.siguiente <- NULL
+
+    SI (lista.cabeza = NULL) ENTONCES
+        lista.cabeza <- nodo
+    SINO
+        lista.ultimo^.siguiente <- nodo
+        nodo^.anterior <- lista^.ultimo
+    FIN_SI
+    lista.ultimo <- nodo
+FIN agregarNodo1
+
+
+FUNCION llenarDatos1(ListaEnlazada1 lista)
     ESCRIBIR "LLENADO DE DATOS"
     continuar <- "s"
 
@@ -52,8 +66,8 @@ FUNCION llenarDatos(ListaEnlazada lista)
         SI (nodo = NULL) ENTONCES
             ESCRIBIR "No hay memoria disponible en el sistema"
         SINO
-            pedirDatos(nodo)
-            // Agregar nodo a la lista
+            pedirDatos1(nodo)
+            agregarNodo1(ListaEnlazada1, nodo)
         FIN_SI
         ESCRIBIR "Desea agregar otro nodo a la lista? [S/N]: "
         LEER(continuar) 
@@ -61,8 +75,194 @@ FUNCION llenarDatos(ListaEnlazada lista)
 FIN llenarDatos
 
 
-PROGRAMA_PRINCIPAL
-    ListaEnlazada lista
+FUNCION pedirDatos2(Nodo2 nodo)
+    ESCRIBIR "Introduzca un numero: "
+    LEER(nodo^.dato)
+FIN pedirDatos
 
-    llenarDatos(lista)
+
+FUNCION agregarNodo2(ListaEnlazada2 lista, Nodo *nodo)
+    nodo^.siguiente <- NULL
+
+    SI (lista.cabeza = NULL) ENTONCES
+        lista.cabeza <- nodo
+    SINO
+        lista.ultimo^.siguiente <- nodo
+    FIN_SI
+    lista.ultimo <- nodo
+FIN agregarNodo2
+
+
+FUNCION llenarDatos2(ListaEnlazada1 lista)
+    ESCRIBIR "LLENADO DE DATOS"
+    continuar <- "s"
+
+    MIENTRAS (continuar = "s") HACER
+        // Crear nuevo nodo
+        Nodo *nodo
+        NEW(nodo)
+        SI (nodo = NULL) ENTONCES
+            ESCRIBIR "No hay memoria disponible en el sistema"
+        SINO
+            pedirDatos2(nodo)
+            agregarNodo2(ListaEnlazada1, nodo)
+        FIN_SI
+
+        ESCRIBIR "Desea agregar otro nodo a la lista? [S/N]: "
+        LEER(continuar) 
+    FIN_MIENTRAS
+FIN llenarDatos
+
+
+FUNCION borrarCabeza(ListaEnlazada2 lista)
+    Nodo *nodoBorrar <- lista.cabeza
+    lista.cabeza <- lista.cabeza^.siguiente
+    lista.cabeza^.anterior <- NULL
+    DELETE(nodoBorrar)
+FIN borrarCabeza
+
+
+FUNCION borrarUltimo(ListaEnlazada2 lista)
+    Nodo *nodoBorrar <- lista.ultimo
+    lista.ultimo <- lista.ultimo^.anterior
+    lista.ultimo^.siguiente <- NULL
+    DELETE(nodoBorrar)
+FIN borrarUltimo
+
+
+FUNCION borrarNodo(ListaEnlazada2 lista, Nodo2 *nodoBorrar)
+    nodoBorrar^.anterior^.siguiente <- nodoBorrar^.siguiente
+    nodoBorrar^.siguiente^.anterior <- nodoBorrar^.anterior
+    DELETE(nodoBorrar)
+FIN borrarNodo
+
+
+FUNCION borrar(ListaEnlazada2 lista, Nodo2 *nodoBorrar)
+    SI (nodoBorrar = lista.cabeza) ENTONCES
+        borrarCabeza(lista)
+    SINO
+        SI (nodoBorrar = lista.ultimo) ENTONCES
+            borrarUltimo(lista)
+        SINO
+            borrarNodo(lista, nodoBorrar)
+        FIN_SI
+    FIN_SI
+FIN borrar
+
+
+FUNCION insertarDescendentemente(ListaEnlazada1 lista1, Nodo1 *nodo)
+    SI (nodo^.dato > lista.cabeza^.dato) ENTONCES
+        nodo^.siguiente <- lista.cabeza
+        lista.cabeza^.antes <- nodo
+        lista.cabeza <- nodo
+    SINO
+        SI (nodo^.dato < lista.ultimo^.dato) ENTONCES
+            lista.ultimo^.siguiente <- nodo
+            nodo^.anterior <- lista.ultimo
+            lista.ultimo <- nodo
+        SINO
+            Nodo *cursor <- lista.cabeza
+
+            MIENTRAS (cursor^.siguiente != NULL) AND (nodo^.dato <= cursor^.dato) HACER
+                cursor <- cursor^.siguiente
+            FIN_MIENTRAS
+            
+            nodo^.anterior <- cursor^.anterior
+            nodo^.anterior^.siguiente <- nodo
+            nodo^.siguiente <- cursor
+            cursor^.anterior <- nodo
+        FIN_SI
+    FIN_SI
+FIN insertarDescendentemente
+
+
+FUNCION contiene(ListaEnlazada1 lista, entero dato)
+    Nodo2 *cursor <- lista.cabeza
+    repetido <- false
+
+    MIENTRAS (cursor^.siguiente <> NULL) AND (repetido = false) ENTONCES
+        SI (dato = cursor^.dato) ENTONCES
+            repetido <- true
+        FIN_SI
+    FIN_MIENTRAS
+
+    RETORNAR repetido
+FIN contiene
+
+
+FUNCION agregarUnicos(ListaEnlazada1 lista1, ListaEnlazada2 lista2)
+    Nodo2 *cursor <- lista2.cabeza
+    
+    MIENTRAS (cursor <> NULL) HACER
+        SI (contiene(lista2, cursor^.dato) = true)
+            borrar(lista2, cursor^.dato)
+        SINO
+            Nodo1 *nuevoNodo
+            NEW(nuevoNodo)
+            SI (nuevoNodo = NULL)
+                ESCRIBIR "Not memory"
+            SINO
+                nuevoNodo^dato <- cursor^.dato
+                insertarDescendentemente(lista1, nuevoNodo)
+            FIN_SI
+        FIN_SI
+    FIN_MIENTRAS 
+FIN agregarUnicos
+
+
+FUNCION mostrarLista1(ListaEnlazada1 lista)
+    Nodo1 *cursor
+    cursor <- lista.cabeza
+    ESCRIBIR "NULL <- "
+    MIENTRAS (cursor <> NULL) HACER
+        ESCRIBIR cursor^.dato, " <-> "
+        cursor <- cursor^.siguiente
+    FIN_MIENTRAS
+
+    ESCRIBIR " -> NULL"
+FIN mostrarLista1
+
+
+FUNCION mostrarLista2(ListaEnlazada2 lista)
+    Nodo2 *cursor
+    cursor <- lista.cabeza
+    ESCRIBIR "NULL <- "
+    MIENTRAS (cursor <> NULL) HACER
+        ESCRIBIR cursor^.dato, " <-> "
+        cursor <- cursor^.siguiente
+    FIN_MIENTRAS
+
+    ESCRIBIR " -> NULL"
+FIN mostrarLista2
+
+
+FUNCION mostrarResultados(ListaEnlazada1 lista1, ListaEnlazada2 lista2)
+    ESCRIBIR "RESULTADO"
+    
+    ESCRIBIR "Lista doblemente enlazada original"
+    mostrarLista1(lista1)
+    ESCRIBIR "Lista simplemente enlazada original"
+    mostrarLista2(lista2)
+
+    agregarUnicos(lista1, lista2)
+    
+    ESCRIBIR "===================================="
+
+    ESCRIBIR "Lista doblemente enlazada modificada"
+    mostrarLista1(lista1)
+    ESCRIBIR "Lista simplemente enlazada modificada"
+    mostrarLista2(lista2)
+FIN mostrarResultados
+
+
+PROGRAMA_PRINCIPAL
+    ListaEnlazada1 lista1
+    ListaEnlazada2 lista2
+    ESCRIBIR "Llenar listas doblemente enlazada"
+    llenarDatos1(lista1)
+    ESCRIBIR "---------------------------------"
+    ESCRIBIR "Llenar listas doblemente enlazada"
+    llenarDatos2(lista2)
+
+    mostrarResultados()
 FIN PROGRAMA_PRINCIPAL

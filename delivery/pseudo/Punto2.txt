@@ -32,9 +32,11 @@ FUNCION insercionOrdenada(ListaEnlazada lista, Nodo *nodo)
             lista.ultimo <- nodo
         SINO
             Nodo *cursor <- lista.cabeza
+
             MIENTRAS (cursor^.siguiente != NULL) AND (nodo^.dato >= cursor^.dato) HACER
                 cursor <- cursor^.siguiente
             FIN_MIENTRAS
+
             nodo^.anterior <- cursor^.anterior
             nodo^.anterior^.siguiente <- nodo
             nodo^.siguiente <- cursor
@@ -113,7 +115,7 @@ FUNCION mover(Nodo *nodoMover, ListaEnlazada base, ListaEnlazada objetivo)
         moverCabeza(base, objetivo)
     SINO
         SI (nodoMover = base.ultimo) ENTONCES
-            moverUltimo(base, objetivo)
+            moverUltimo(base, etivo)
         SINO
             moverNodo(nodoMover, base, objetivo)
         FIN_SI

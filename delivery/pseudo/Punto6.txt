@@ -5,7 +5,6 @@
 * "A" o "R", respectivamente.
 */
 
-
 DEFINIR Nodo1
     entero codigo
     Nodo1 *siguiente
@@ -31,7 +30,7 @@ FIN ListaEnlazada2
 // Append nodo O(1)
 FUNCION agregarNodo1(ListaEnlazada1 lista, Nodo1 *nodo)
     nodo^.siguiente <- NULL
-
+ 
     SI (lista.cabeza = NULL) ENTONCES
         lista.cabeza <- nodo
     SINO
@@ -72,11 +71,10 @@ FUNCION agregarNodo2(ListaEnlazada2 lista, Nodo2 *nodo)
 
     SI (lista.cabeza = NULL) ENTONCES
         lista.cabeza <- nodo
-        lista.ultimo <- nodo
     SINO
         lista.ultimo^.siguiente <- nodo
-        lista.ultimo <- nodo
     FIN_SI
+    lista.ultimo <- nodo
 FIN agregarNodo2
 
 
@@ -127,7 +125,7 @@ FIN buscarNodoPorCodigo
 
 
 FUNCION pop(ListaEnlazada1 lista1)
-    nodoBorrar <- lista1.cabeza
+    Nodo *nodoBorrar <- lista1.cabeza
     lista1.cabeza <- lista1.cabeza^.siguiente
     DELETE(nodoBorrar)
 FIN pop
@@ -197,12 +195,11 @@ FUNCION ejecutarAccion(ListaEnlazada1 lista1, ListaEnlazada2 lista2)
         SI (cursor2^.accion = 'A') ENTONCES
             Nodo1 *nuevoNodo
             NEW(nuevoNodo)
-            
             SI (nuevoNodo = NULL)
                 ESCRIBIR "Not memory"
             SINO
                 nuevoNodo^.codigo <- cursor2^.codigo
-                agregarNodo1(lista1,nuevoNodo)
+                agregarNodo1(lista1, nuevoNodo)
             FIN_SI
         SINO
             SI (cursor2^.accion = 'R') ENTONCES
@@ -211,6 +208,10 @@ FUNCION ejecutarAccion(ListaEnlazada1 lista1, ListaEnlazada2 lista2)
         FIN_SI
         cursor2 <- cursor2^.siguiente
     FIN_MIENTRAS
+
+    // 2 -> 5 -> 9 -> NULL
+    // 1 -> 3 -> 9 -> 6 -> NULL
+    //           A    R
 FIN ejecutarAccion
 
 
@@ -221,7 +222,7 @@ FUNCION mostrarLista1(ListaEnlazada1 lista1)
         ESCRIBIR "{ dato: ", cursor^.dato, "} -> "
         cursor <- cursor^.siguiente
     FIN_MIENTRAS
-
+    
     ESCRIBIR "NULL"
 FIN mostrarLista1
 
