@@ -208,10 +208,6 @@ FUNCION ejecutarAccion(ListaEnlazada1 lista1, ListaEnlazada2 lista2)
         FIN_SI
         cursor2 <- cursor2^.siguiente
     FIN_MIENTRAS
-
-    // 2 -> 5 -> 9 -> NULL
-    // 1 -> 3 -> 9 -> 6 -> NULL
-    //           A    R
 FIN ejecutarAccion
 
 

@@ -115,7 +115,7 @@ FUNCION mover(Nodo *nodoMover, ListaEnlazada base, ListaEnlazada objetivo)
         moverCabeza(base, objetivo)
     SINO
         SI (nodoMover = base.ultimo) ENTONCES
-            moverUltimo(base, etivo)
+            moverUltimo(base, objetivo)
         SINO
             moverNodo(nodoMover, base, objetivo)
         FIN_SI
