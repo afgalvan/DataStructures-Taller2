@@ -9,7 +9,6 @@ package co.edu.unicesar.estructura.datos.taller2.points.point4;
 import co.edu.unicesar.estructura.datos.taller2.models.collections.lists.SimplyLinkedList;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import lombok.val;
 import lombok.var;
 
