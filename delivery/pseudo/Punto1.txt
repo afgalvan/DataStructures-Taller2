@@ -94,7 +94,7 @@ FUNCION llenarDatos1(ListaEnlazada1 lista)
 
     MIENTRAS (continuar = "s") HACER
         // Crear nuevo nodo
-        Nodo *nodo
+        Nodo1 *nodo
         NEW(nodo)
         SI (nodo = NULL) ENTONCES
             ESCRIBIR "No hay memoria disponible en el sistema"
@@ -132,7 +132,7 @@ FUNCION llenarDatos2(ListaEnlazada1 lista)
 
     MIENTRAS (continuar = "s") HACER
         // Crear nuevo nodo
-        Nodo *nodo
+        Nodo2 *nodo
         NEW(nodo)
         SI (nodo = NULL) ENTONCES
             ESCRIBIR "No hay memoria disponible en el sistema"
@@ -148,7 +148,7 @@ FIN llenarDatos
 
 
 FUNCION borrarCabeza(ListaEnlazada2 lista)
-    Nodo *nodoBorrar <- lista.cabeza
+    Nodo2 *nodoBorrar <- lista.cabeza
     lista.cabeza <- lista.cabeza^.siguiente
     lista.cabeza^.anterior <- NULL
     DELETE(nodoBorrar)
@@ -156,7 +156,7 @@ FIN borrarCabeza
 
 
 FUNCION borrarUltimo(ListaEnlazada2 lista)
-    Nodo *nodoBorrar <- lista.ultimo
+    Nodo2 *nodoBorrar <- lista.ultimo
     lista.ultimo <- lista.ultimo^.anterior
     lista.ultimo^.siguiente <- NULL
     DELETE(nodoBorrar)
@@ -189,7 +189,7 @@ FUNCION copiarUnicos(ListaEnlazada1 lista1, ListaEnlazada2 lista2)
     MIENTRAS (cursor <> NULL) HACER
         SI (contiene(lista2, cursor^.dato) = true)
             borrar(lista2, cursor^.dato)
-        SINO
+        SINO    
             Nodo1 *nuevoNodo
             NEW(nuevoNodo)
             SI (nuevoNodo = NULL)
@@ -199,7 +199,7 @@ FUNCION copiarUnicos(ListaEnlazada1 lista1, ListaEnlazada2 lista2)
                 agregarUnico(lista1, nuevoNodo)
             FIN_SI
         FIN_SI
-    FIN_MIENTRAS 
+    FIN_MIENTRAS
 FIN copiarUnicos
 
 
@@ -257,5 +257,5 @@ PROGRAMA_PRINCIPAL
     ESCRIBIR "Llenar listas doblemente enlazada"
     llenarDatos2(lista2)
 
-    mostrarResultados()
+    mostrarResultados(lista1, lista2)
 FIN PROGRAMA_PRINCIPAL
